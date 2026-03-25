@@ -3,60 +3,104 @@ import pandas as pd
 import json
 import os
 
-# 1. Define your Themes (matching the tickers in your photo)
-THEMES = [
-    {"name": "Cybersecurity", "tickers": ["CIBR", "HACK", "BUG"], "main": "CIBR"},
-    {"name": "Oil Services", "tickers": ["OIH", "XLE", "CRAK"], "main": "OIH"},
-    {"name": "Solar Energy", "tickers": ["TAN", "FSLR", "ENPH"], "main": "TAN"},
-    {"name": "Semiconductors", "tickers": ["SOXX", "NVDA", "AMD"], "main": "SOXX"}
-]
-
 BENCHMARK = "SPY"
 
-def get_rotation_data():
-    results = []
+# Mapping GICS Sectors to their tradable State Street ETFs (Standard Industry Benchmarks)
+SECTOR_ETF_MAP = {
+    "Information Technology": "XLK",
+    "Health Care": "XLV",
+    "Financials": "XLF",
+    "Consumer Discretionary": "XLY",
+    "Communication Services": "XLC",
+    "Industrials": "XLI",
+    "Consumer Staples": "XLP",
+    "Energy": "XLE",
+    "Real Estate": "XLRE",
+    "Utilities": "XLU",
+    "Materials": "XLB"
+}
+
+def get_sp500_structure():
+    print("Scraping S&P 500 structure from Wikipedia...")
+    table = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+    df = table[0]
+    # Clean tickers for yfinance
+    df['Symbol'] = df['Symbol'].str.replace('.', '-', regex=False)
     
-    for theme in THEMES:
-        print(f"Processing {theme['name']}...")
-        
-        # Download 6 months of data for the Theme and SPY
-        tickers_to_fetch = [theme['main'], BENCHMARK]
-        data = yf.download(tickers_to_fetch, period="6mo", interval="1d")['Close']
-        
-        # --- MATH SECTION ---
-        # RS-Raw = (Sector / SPY) * 100
-        rs_raw = (data[theme['main']] / data[BENCHMARK]) * 100
-        
-        # RS-Ratio (X-Axis): 10-day smoothing
-        rs_ratio = rs_raw.ewm(span=10, adjust=False).mean()
-        
-        # RS-Momentum (Y-Axis): ROC of the Ratio
-        rs_momentum = (rs_ratio.pct_change(periods=10) * 100) + 100
-        
-        # Latest Values
-        current_ratio = rs_ratio.iloc[-1]
-        current_mom = rs_momentum.iloc[-1]
-        
-        # --- QUADRANT LOGIC ---
-        status = "Lagging"
-        if current_ratio > 100 and current_mom > 100: status = "Leading"
-        elif current_ratio > 100 and current_mom < 100: status = "Weakening"
-        elif current_ratio < 100 and current_mom > 100: status = "Improving"
+    sector_map = {}
+    for sector in df['GICS Sector'].unique():
+        tickers = df[df['GICS Sector'] == sector]['Symbol'].tolist()
+        sector_map[sector] = tickers
+    return sector_map
 
-        results.append({
-            "name": theme['name'],
-            "tickers": ", ".join(theme['tickers']),
-            "score": round(current_ratio, 1),
-            "momentum": round(current_mom, 1),
-            "status": status,
-            "change": round(data[theme['main']].pct_change().iloc[-1] * 100, 2)
-        })
+def get_rotation_data():
+    sector_map = get_sp500_structure()
+    all_sector_etfs = list(SECTOR_ETF_MAP.values())
+    
+    # 1. Download all Sector ETF data and SPY at once
+    print("Downloading Sector ETF data...")
+    price_data = yf.download(all_sector_etfs + [BENCHMARK], period="7mo")['Close']
+    
+    # 2. Download all 500 individual stocks for Breadth (Last 60 days only)
+    all_stocks = [t for sublist in sector_map.values() for t in sublist]
+    print(f"Downloading data for {len(all_stocks)} stocks for Breadth calculation...")
+    breadth_data = yf.download(all_stocks, period="65d")['Close']
 
-    # Save to the root of your project so React can find it
+    results = []
+
+    for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
+        print(f"Analyzing {sector_name} ({etf_ticker})...")
+        
+        try:
+            # --- ROTATION MATH ---
+            # RS-Raw = (Sector / SPY) * 100
+            rs_raw = (price_data[etf_ticker] / price_data[BENCHMARK]) * 100
+            rs_ratio = rs_raw.ewm(span=10, adjust=False).mean()
+            rs_momentum = (rs_ratio.pct_change(periods=10) * 100) + 100
+            
+            cur_ratio = rs_ratio.iloc[-1]
+            cur_mom = rs_momentum.iloc[-1]
+            
+            # Quadrant Logic
+            status = "Lagging"
+            if cur_ratio > 100 and cur_mom > 100: status = "Leading"
+            elif cur_ratio > 100 and cur_mom < 100: status = "Weakening"
+            elif cur_ratio < 100 and cur_mom > 100: status = "Improving"
+
+            # --- BREADTH MATH ---
+            # % of stocks in this sector above their 50-day Moving Average
+            sector_symbols = sector_map.get(sector_name, [])
+            count_above = 0
+            valid_symbols = 0
+            
+            for sym in sector_symbols:
+                if sym in breadth_data.columns:
+                    series = breadth_data[sym].dropna()
+                    if len(series) > 50:
+                        ma50 = series.rolling(window=50).mean().iloc[-1]
+                        if series.iloc[-1] > ma50:
+                            count_above += 1
+                        valid_symbols += 1
+            
+            breadth_pct = (count_above / valid_symbols * 100) if valid_symbols > 0 else 0
+
+            results.append({
+                "name": sector_name,
+                "ticker": etf_ticker,
+                "score": round(cur_ratio, 1),
+                "momentum": round(cur_mom, 1),
+                "status": status,
+                "breadth": round(breadth_pct, 1),
+                "change": round(price_data[etf_ticker].pct_change().iloc[-1] * 100, 2)
+            })
+        except Exception as e:
+            print(f"Error processing {sector_name}: {e}")
+
+    # Save output
     output_path = os.path.join(os.path.dirname(__file__), '..', 'data.json')
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
-    print("Successfully updated data.json")
+    print(f"Successfully updated data.json with {len(results)} sectors.")
 
 if __name__ == "__main__":
     get_rotation_data()
