@@ -21,7 +21,7 @@ jobs:
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          pip install -r scripts/requirements.txt
 
       - name: Run Rotation Script
         run: python scripts/calculate_rotation.py
