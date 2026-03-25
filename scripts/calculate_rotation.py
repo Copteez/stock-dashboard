@@ -3,6 +3,7 @@ import pandas as pd
 import json
 import os
 import requests
+from io import StringIO
 
 session = requests.Session()
 session.headers.update({
@@ -30,19 +31,17 @@ def get_sp500_structure():
     print("Scraping S&P 500 structure from Wikipedia...")
     
     url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-    
-    # Wikipedia REQUIRES a custom User-Agent. 
-    # You can put your own email or project name here too.
     headers = {
-        'User-Agent': 'MarketRotationBot/1.0 (https://github.com/Copteez/stock-dashboard)'
+        'User-Agent': 'MarketRotationBot/1.0 (Contact: your-email@example.com)'
     }
     
-    # 1. Manually get the page content
     response = requests.get(url, headers=headers)
     
-    # 2. Pass the HTML text to pandas
-    # We use [0] because it's the first table on the page
-    table = pd.read_html(response.text)
+    # CRITICAL FIX: Wrap response.text in StringIO()
+    # This forces pandas to read the string as a data stream
+    html_data = StringIO(response.text)
+    
+    table = pd.read_html(html_data)
     df = table[0]
     
     # Clean tickers for yfinance
