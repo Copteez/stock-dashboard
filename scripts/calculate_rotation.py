@@ -179,14 +179,29 @@ def get_rotation_data():
             else:
                 display_status = status # Fallback to your RRG status (Leading, etc.)
             
-            # --- CALCULATE 5-DAY TRAIL ---
-            # We take the last 5 values from our series
+            # --- CALCULATE 5-DAY TRAIL (Hardened) ---
+            # Drop any NaN values from the series before grabbing the trail
+            clean_ratio = rs_ratio_series.dropna()
+            clean_mom = rs_momentum_series.dropna()
+            
             trail_raw = []
-            for i in range(-5, 0):
-                trail_raw.append({
-                    "x": round(rs_ratio_series.iloc[i], 2),
-                    "y": round(rs_momentum_series.iloc[i], 2)
-                })
+            
+            # Check if we have at least 5 days of valid data after dropping NaNs
+            if len(clean_ratio) >= 5 and len(clean_mom) >= 5:
+                # Synchronize indices to ensure we use the same dates for X and Y
+                common_index = clean_ratio.index.intersection(clean_mom.index)
+                
+                # Take the last 5 valid trading days
+                for i in range(-5, 0):
+                    idx = common_index[i]
+                    trail_raw.append({
+                        "x": round(float(clean_ratio.loc[idx]), 2),
+                        "y": round(float(clean_mom.loc[idx]), 2)
+                    })
+            else:
+                # Fallback: Just use the current point as a single-point trail
+                trail_raw = [{"x": round(float(cur_ratio), 2), "y": round(float(cur_mom), 2)}]
+                
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
