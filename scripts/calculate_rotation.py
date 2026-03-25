@@ -133,29 +133,41 @@ def get_rotation_data():
             
             for sym in sector_symbols:
                 if sym in breadth_data.columns:
+                    # Drop NaNs immediately to avoid math errors
                     series = breadth_data[sym].dropna()
-                    if len(series) > 50:
-                        valid_symbols += 1
-                        curr = series.iloc[-1]
-                        prev = series.iloc[-2]
-                        ma50 = series.rolling(window=50).mean().iloc[-1]
-                        ma20 = series.rolling(window=20).mean().iloc[-1]
+                    
+                    # Ensure we have at least 50 days of data for the MA
+                    if len(series) >= 50:
+                        try:
+                            valid_symbols += 1
+                            curr = series.iloc[-1]
+                            prev = series.iloc[-2]
+                            
+                            # Calculate MAs
+                            ma50_series = series.rolling(window=50).mean()
+                            ma50 = ma50_series.iloc[-1]
+                            
+                            # Final NaN check on the MA itself
+                            if pd.isna(ma50):
+                                valid_symbols -= 1
+                                continue
 
-                        # 1. Basic Breadth
-                        if curr > ma50: count_above_50ma += 1
+                            # 1. Basic Breadth
+                            if curr > ma50: count_above_50ma += 1
 
-                        # 2. Setup: Pullback (Trend is up, but price is near support)
-                        # Price is within 2% of the 50MA or 20MA
-                        if curr > ma50 and (curr / ma50 < 1.02):
-                            setup_count += 1
+                            # 2. Setup: Pullback
+                            if curr > ma50 and (curr / ma50 < 1.02):
+                                setup_count += 1
 
-                        # 3. Setup: Fresh Breakout (Crossed MA in last 48 hours)
-                        if prev < ma50 and curr > ma50:
-                            breakout_count += 1
-                        
-                        # 4. Risk Flag: Extended (Vertical move, needs a rest)
-                        if curr / ma50 > 1.15:
-                            extended_count += 1
+                            # 3. Setup: Breakout
+                            if prev < ma50 and curr > ma50:
+                                breakout_count += 1
+                            
+                            # 4. Risk Flag: Extended
+                            if curr / ma50 > 1.15:
+                                extended_count += 1
+                        except Exception:
+                            continue # Skip symbols that cause calculation errors
             
             breadth_pct = (count_above_50ma / valid_symbols * 100) if valid_symbols > 0 else 0
 
