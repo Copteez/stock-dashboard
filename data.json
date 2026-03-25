@@ -2,77 +2,81 @@
     {
         "name": "Information Technology",
         "ticker": "XLK",
-        "score": 99.1,
+        "score": 99.2,
         "momentum": 100.3,
         "status": "Improving",
         "breadth": 41.1,
+        "setups": 12,
+        "extended": 8,
         "rankings": [
             {
                 "symbol": "CIEN",
-                "rs_score": 143.0
+                "rs_score": 143.5
             },
             {
                 "symbol": "LITE",
-                "rs_score": 139.5
+                "rs_score": 139.2
             },
             {
                 "symbol": "DELL",
-                "rs_score": 138.9
+                "rs_score": 139.1
             },
             {
                 "symbol": "GLW",
-                "rs_score": 119.0
+                "rs_score": 119.3
             },
             {
                 "symbol": "HPE",
-                "rs_score": 119.0
+                "rs_score": 119.1
             },
             {
                 "symbol": "AKAM",
-                "rs_score": 117.9
-            },
-            {
-                "symbol": "KEYS",
-                "rs_score": 117.4
+                "rs_score": 118.2
             },
             {
                 "symbol": "COHR",
-                "rs_score": 117.1
+                "rs_score": 117.5
+            },
+            {
+                "symbol": "KEYS",
+                "rs_score": 117.3
             },
             {
                 "symbol": "SNDK",
-                "rs_score": 114.6
+                "rs_score": 114.4
             },
             {
                 "symbol": "TER",
-                "rs_score": 113.7
+                "rs_score": 113.5
             }
         ],
-        "change": 0.83
+        "change": 0.73
     },
     {
         "name": "Health Care",
         "ticker": "XLV",
         "score": 98.2,
         "momentum": 99.2,
-        "status": "Lagging",
+        "status": "Broken",
         "breadth": 20.3,
+        "setups": 10,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "DVA",
-                "rs_score": 112.4
+                "rs_score": 112.6
             },
             {
                 "symbol": "MRNA",
-                "rs_score": 110.4
+                "rs_score": 110.1
             },
             {
                 "symbol": "MRK",
-                "rs_score": 103.4
+                "rs_score": 103.2
             },
             {
                 "symbol": "ALGN",
-                "rs_score": 102.9
+                "rs_score": 103.0
             },
             {
                 "symbol": "BIIB",
@@ -84,46 +88,48 @@
             },
             {
                 "symbol": "JNJ",
-                "rs_score": 102.1
+                "rs_score": 102.0
             },
             {
                 "symbol": "WST",
                 "rs_score": 101.3
             },
             {
-                "symbol": "BMY",
-                "rs_score": 100.7
-            },
-            {
                 "symbol": "HOLX",
                 "rs_score": 100.5
+            },
+            {
+                "symbol": "BMY",
+                "rs_score": 100.4
             }
         ],
-        "change": 1.06
+        "change": 0.98
     },
     {
         "name": "Financials",
         "ticker": "XLF",
-        "score": 96.5,
-        "momentum": 100.8,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Broken",
         "breadth": 5.3,
+        "setups": 4,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "C",
-                "rs_score": 101.4
+                "rs_score": 101.6
             },
             {
                 "symbol": "XYZ",
-                "rs_score": 101.1
+                "rs_score": 101.0
             },
             {
                 "symbol": "CB",
-                "rs_score": 100.8
+                "rs_score": 100.9
             },
             {
                 "symbol": "ALL",
-                "rs_score": 100.4
+                "rs_score": 100.6
             },
             {
                 "symbol": "STT",
@@ -131,34 +137,36 @@
             },
             {
                 "symbol": "CBOE",
-                "rs_score": 99.5
+                "rs_score": 99.7
+            },
+            {
+                "symbol": "CME",
+                "rs_score": 99.6
             },
             {
                 "symbol": "EG",
-                "rs_score": 99.4
-            },
-            {
-                "symbol": "HIG",
-                "rs_score": 99.4
+                "rs_score": 99.5
             },
             {
                 "symbol": "L",
                 "rs_score": 99.3
             },
             {
-                "symbol": "CME",
-                "rs_score": 99.2
+                "symbol": "AIG",
+                "rs_score": 99.1
             }
         ],
-        "change": 0.14
+        "change": NaN
     },
     {
         "name": "Consumer Discretionary",
         "ticker": "XLY",
-        "score": 97.1,
+        "score": 97.2,
         "momentum": 100.8,
-        "status": "Improving",
+        "status": "Broken",
         "breadth": 16.7,
+        "setups": 4,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "GRMN",
@@ -166,11 +174,11 @@
             },
             {
                 "symbol": "ROST",
-                "rs_score": 108.0
+                "rs_score": 107.9
             },
             {
                 "symbol": "MGM",
-                "rs_score": 104.3
+                "rs_score": 104.4
             },
             {
                 "symbol": "TJX",
@@ -178,11 +186,11 @@
             },
             {
                 "symbol": "TPR",
-                "rs_score": 102.4
+                "rs_score": 102.3
             },
             {
                 "symbol": "ABNB",
-                "rs_score": 102.0
+                "rs_score": 101.8
             },
             {
                 "symbol": "EBAY",
@@ -198,34 +206,36 @@
             },
             {
                 "symbol": "MAR",
-                "rs_score": 98.8
+                "rs_score": 98.9
             }
         ],
-        "change": 1.2
+        "change": 1.1
     },
     {
         "name": "Communication Services",
         "ticker": "XLC",
-        "score": 99.5,
-        "momentum": 98.4,
+        "score": 99.8,
+        "momentum": 98.7,
         "status": "Lagging",
         "breadth": 30.4,
+        "setups": 3,
+        "extended": 0,
         "rankings": [
             {
-                "symbol": "T",
-                "rs_score": 107.9
-            },
-            {
                 "symbol": "VZ",
-                "rs_score": 107.8
+                "rs_score": 107.7
             },
             {
-                "symbol": "SATS",
-                "rs_score": 104.9
+                "symbol": "T",
+                "rs_score": 107.5
             },
             {
                 "symbol": "NFLX",
-                "rs_score": 104.2
+                "rs_score": 105.7
+            },
+            {
+                "symbol": "SATS",
+                "rs_score": 104.8
             },
             {
                 "symbol": "TMUS",
@@ -233,7 +243,7 @@
             },
             {
                 "symbol": "LYV",
-                "rs_score": 102.0
+                "rs_score": 101.9
             },
             {
                 "symbol": "EA",
@@ -241,77 +251,81 @@
             },
             {
                 "symbol": "CHTR",
-                "rs_score": 100.0
+                "rs_score": 99.9
+            },
+            {
+                "symbol": "NWSA",
+                "rs_score": 98.9
             },
             {
                 "symbol": "NWS",
                 "rs_score": 98.9
-            },
-            {
-                "symbol": "NWSA",
-                "rs_score": 98.8
             }
         ],
-        "change": 0.31
+        "change": 0.27
     },
     {
         "name": "Industrials",
         "ticker": "XLI",
-        "score": 105.4,
-        "momentum": 100.4,
-        "status": "Leading",
-        "breadth": 24.1,
+        "score": 105.8,
+        "momentum": 100.7,
+        "status": "Broken",
+        "breadth": 25.3,
+        "setups": 14,
+        "extended": 2,
         "rankings": [
             {
                 "symbol": "VRT",
-                "rs_score": 122.3
+                "rs_score": 122.1
             },
             {
                 "symbol": "GEV",
-                "rs_score": 118.4
+                "rs_score": 118.1
             },
             {
                 "symbol": "FIX",
-                "rs_score": 114.2
+                "rs_score": 114.0
             },
             {
                 "symbol": "PWR",
-                "rs_score": 110.4
+                "rs_score": 110.5
             },
             {
                 "symbol": "JCI",
-                "rs_score": 105.6
+                "rs_score": 105.7
             },
             {
                 "symbol": "ETN",
-                "rs_score": 104.9
+                "rs_score": 105.0
             },
             {
                 "symbol": "EME",
-                "rs_score": 104.6
+                "rs_score": 104.4
+            },
+            {
+                "symbol": "GNRC",
+                "rs_score": 103.3
             },
             {
                 "symbol": "CAT",
-                "rs_score": 102.7
+                "rs_score": 102.8
             },
             {
                 "symbol": "HWM",
                 "rs_score": 102.7
-            },
-            {
-                "symbol": "HUBB",
-                "rs_score": 102.5
             }
         ],
-        "change": 0.99
+        "change": 1.02
     },
     {
         "name": "Consumer Staples",
         "ticker": "XLP",
         "score": 103.4,
         "momentum": 98.3,
-        "status": "Weakening",
+        "status": "Broken",
         "breadth": 14.3,
+        "setups": 1,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "BG",
@@ -323,66 +337,68 @@
             },
             {
                 "symbol": "KR",
-                "rs_score": 103.5
+                "rs_score": 103.6
             },
             {
                 "symbol": "TGT",
-                "rs_score": 103.0
+                "rs_score": 103.1
             },
             {
                 "symbol": "HSY",
-                "rs_score": 101.6
+                "rs_score": 101.5
             },
             {
                 "symbol": "WMT",
-                "rs_score": 99.6
+                "rs_score": 99.7
             },
             {
                 "symbol": "COST",
-                "rs_score": 99.3
+                "rs_score": 99.2
             },
             {
                 "symbol": "KO",
                 "rs_score": 99.1
             },
             {
-                "symbol": "KVUE",
-                "rs_score": 98.4
+                "symbol": "SYY",
+                "rs_score": 98.3
             },
             {
                 "symbol": "TSN",
-                "rs_score": 98.4
+                "rs_score": 98.3
             }
         ],
-        "change": 0.52
+        "change": 0.47
     },
     {
         "name": "Energy",
         "ticker": "XLE",
-        "score": 126.6,
-        "momentum": 101.5,
-        "status": "Leading",
+        "score": 126.8,
+        "momentum": 101.6,
+        "status": "Extended",
         "breadth": 100.0,
+        "setups": 0,
+        "extended": 10,
         "rankings": [
             {
                 "symbol": "APA",
-                "rs_score": 138.6
+                "rs_score": 138.9
             },
             {
                 "symbol": "OXY",
-                "rs_score": 123.3
+                "rs_score": 123.5
             },
             {
                 "symbol": "TPL",
-                "rs_score": 120.7
+                "rs_score": 121.1
             },
             {
                 "symbol": "MPC",
-                "rs_score": 119.6
+                "rs_score": 120.1
             },
             {
                 "symbol": "EOG",
-                "rs_score": 117.5
+                "rs_score": 117.7
             },
             {
                 "symbol": "COP",
@@ -398,26 +414,28 @@
             },
             {
                 "symbol": "PSX",
-                "rs_score": 116.0
+                "rs_score": 116.3
             },
             {
                 "symbol": "FANG",
-                "rs_score": 115.0
+                "rs_score": 115.1
             }
         ],
-        "change": -0.21
+        "change": -0.12
     },
     {
         "name": "Real Estate",
         "ticker": "XLRE",
         "score": 100.5,
         "momentum": 97.2,
-        "status": "Weakening",
+        "status": "Broken",
         "breadth": 16.1,
+        "setups": 4,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "EQIX",
-                "rs_score": 108.2
+                "rs_score": 108.4
             },
             {
                 "symbol": "DLR",
@@ -433,7 +451,7 @@
             },
             {
                 "symbol": "IRM",
-                "rs_score": 100.4
+                "rs_score": 100.2
             },
             {
                 "symbol": "REG",
@@ -445,30 +463,32 @@
             },
             {
                 "symbol": "WELL",
-                "rs_score": 98.7
+                "rs_score": 98.8
             },
             {
                 "symbol": "FRT",
-                "rs_score": 98.4
+                "rs_score": 98.3
             },
             {
                 "symbol": "DOC",
-                "rs_score": 98.3
+                "rs_score": 98.0
             }
         ],
-        "change": 0.1
+        "change": 0.01
     },
     {
         "name": "Utilities",
         "ticker": "XLU",
         "score": 105.7,
-        "momentum": 98.4,
+        "momentum": 98.5,
         "status": "Weakening",
         "breadth": 77.4,
+        "setups": 14,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "EIX",
-                "rs_score": 104.8
+                "rs_score": 104.7
             },
             {
                 "symbol": "SRE",
@@ -476,58 +496,60 @@
             },
             {
                 "symbol": "ATO",
-                "rs_score": 103.0
+                "rs_score": 102.9
             },
             {
                 "symbol": "EXC",
                 "rs_score": 102.6
             },
             {
+                "symbol": "DTE",
+                "rs_score": 102.5
+            },
+            {
                 "symbol": "DUK",
                 "rs_score": 102.5
             },
             {
-                "symbol": "DTE",
+                "symbol": "ETR",
                 "rs_score": 102.4
             },
             {
-                "symbol": "CEG",
-                "rs_score": 102.3
+                "symbol": "FE",
+                "rs_score": 102.2
             },
             {
-                "symbol": "ETR",
+                "symbol": "NEE",
                 "rs_score": 102.2
             },
             {
                 "symbol": "AEP",
                 "rs_score": 102.1
-            },
-            {
-                "symbol": "NEE",
-                "rs_score": 102.1
             }
         ],
-        "change": 0.63
+        "change": 0.62
     },
     {
         "name": "Materials",
         "ticker": "XLB",
-        "score": 107.2,
-        "momentum": 101.2,
+        "score": 107.7,
+        "momentum": 101.5,
         "status": "Leading",
         "breadth": 30.8,
+        "setups": 2,
+        "extended": 3,
         "rankings": [
             {
                 "symbol": "LYB",
-                "rs_score": 130.6
+                "rs_score": 130.9
             },
             {
                 "symbol": "CF",
-                "rs_score": 125.2
+                "rs_score": 125.4
             },
             {
                 "symbol": "DOW",
-                "rs_score": 124.3
+                "rs_score": 124.7
             },
             {
                 "symbol": "CTVA",
@@ -539,15 +561,15 @@
             },
             {
                 "symbol": "APD",
-                "rs_score": 104.2
+                "rs_score": 104.1
             },
             {
                 "symbol": "LIN",
-                "rs_score": 103.5
+                "rs_score": 103.6
             },
             {
                 "symbol": "DD",
-                "rs_score": 100.0
+                "rs_score": 100.2
             },
             {
                 "symbol": "BALL",
@@ -558,6 +580,6 @@
                 "rs_score": 95.3
             }
         ],
-        "change": 1.9
+        "change": 1.92
     }
 ]
