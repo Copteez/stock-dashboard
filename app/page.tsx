@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { ChevronDown } from "lucide-react"; // Make sure to npm install lucide-react
 import themeData from "@/data.json";
 import SectorDetails from "@/components/SectorDetails";
 
 export default function DashboardPage() {
-  // State to track which ticker is currently expanded
   const [selectedTicker, setSelectedTicker] = useState<string | null>(null);
 
   const counts = {
@@ -48,20 +48,29 @@ export default function DashboardPage() {
             <div 
               key={theme.ticker} 
               onClick={() => setSelectedTicker(isSelected ? null : theme.ticker)}
-              className={`bg-white border transition-all cursor-pointer overflow-hidden rounded-lg shadow-sm hover:shadow-md ${
-                isSelected ? "ring-2 ring-blue-500 border-transparent" : "border-slate-200"
+              className={`group bg-white border transition-all duration-200 cursor-pointer overflow-hidden rounded-lg shadow-sm hover:shadow-md hover:-translate-y-1 ${
+                isSelected ? "ring-2 ring-blue-500 border-transparent shadow-lg" : "border-slate-200"
               }`}
             >
               {/* Main Card Content */}
               <div className="p-5">
                 <div className="flex justify-between items-start mb-4">
                   <div>
-                    <h3 className="font-bold text-lg uppercase text-slate-900">{theme.name}</h3>
+                    <h3 className="font-bold text-lg uppercase text-slate-900 group-hover:text-blue-600 transition-colors">
+                      {theme.name}
+                    </h3>
                     <p className="text-xs text-slate-400 font-mono">{theme.ticker}</p>
                   </div>
-                  <span className={`px-2 py-1 rounded text-[10px] font-bold border uppercase tracking-tighter ${statusStyles[theme.status as keyof typeof statusStyles]}`}>
-                    {theme.status}
-                  </span>
+                  
+                  <div className="flex flex-col items-end gap-2">
+                    {/* Visual Indicator: Chevron Icon */}
+                    <div className={`transition-transform duration-300 ${isSelected ? "rotate-180 text-blue-500" : "text-slate-300"}`}>
+                      <ChevronDown size={20} />
+                    </div>
+                    <span className={`px-2 py-1 rounded text-[10px] font-bold border uppercase tracking-tighter ${statusStyles[theme.status as keyof typeof statusStyles]}`}>
+                      {theme.status}
+                    </span>
+                  </div>
                 </div>
 
                 <div className="mb-4">
@@ -85,14 +94,17 @@ export default function DashboardPage() {
                     <div className={`font-bold ${theme.change >= 0 ? "text-green-600" : "text-red-600"}`}>
                       {theme.change >= 0 ? "+" : ""}{theme.change}%
                     </div>
-                    <div className="text-[10px] text-slate-400 uppercase font-mono">Daily Change</div>
+                    {/* Hint text that shows on hover */}
+                    <div className="text-[10px] text-slate-400 uppercase font-mono group-hover:text-blue-500 transition-colors">
+                      {isSelected ? "Close Details" : "Click for Rankings"}
+                    </div>
                   </div>
                 </div>
               </div>
 
               {/* Expanded Details Section */}
               {isSelected && (
-                <div className="border-t border-slate-100 animate-in fade-in slide-in-from-top-2 duration-300">
+                <div className="border-t border-slate-100 bg-slate-50/50 animate-in fade-in slide-in-from-top-2 duration-300">
                   <SectorDetails sector={theme} />
                 </div>
               )}

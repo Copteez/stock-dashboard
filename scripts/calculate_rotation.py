@@ -123,14 +123,60 @@ def get_rotation_data():
             # Sort symbols from High to Low RS
             symbol_rankings.sort(key=lambda x: x['rs_score'], reverse=True)
 
+            # --- ADVANCED SIGNALS & SETUP DENSITY ---
+            sector_symbols = sector_map.get(sector_name, [])
+            setup_count = 0
+            extended_count = 0
+            breakout_count = 0
+            valid_symbols = 0
+            count_above_50ma = 0
+            
+            for sym in sector_symbols:
+                if sym in breadth_data.columns:
+                    series = breadth_data[sym].dropna()
+                    if len(series) > 50:
+                        valid_symbols += 1
+                        curr = series.iloc[-1]
+                        prev = series.iloc[-2]
+                        ma50 = series.rolling(window=50).mean().iloc[-1]
+                        ma20 = series.rolling(window=20).mean().iloc[-1]
+
+                        # 1. Basic Breadth
+                        if curr > ma50: count_above_50ma += 1
+
+                        # 2. Setup: Pullback (Trend is up, but price is near support)
+                        # Price is within 2% of the 50MA or 20MA
+                        if curr > ma50 and (curr / ma50 < 1.02):
+                            setup_count += 1
+
+                        # 3. Setup: Fresh Breakout (Crossed MA in last 48 hours)
+                        if prev < ma50 and curr > ma50:
+                            breakout_count += 1
+                        
+                        # 4. Risk Flag: Extended (Vertical move, needs a rest)
+                        if curr / ma50 > 1.15:
+                            extended_count += 1
+            
+            breadth_pct = (count_above_50ma / valid_symbols * 100) if valid_symbols > 0 else 0
+
+            # Update the status logic to include "Extended" or "Broken"
+            if breadth_pct < 30:
+                display_status = "Broken"
+            elif extended_count > (valid_symbols * 0.4): # If 40% of stocks are vertical
+                display_status = "Extended"
+            else:
+                display_status = status # Fallback to your RRG status (Leading, etc.)
+
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
                 "score": round(cur_ratio, 1),
                 "momentum": round(cur_mom, 1),
-                "status": status,
+                "status": display_status,
                 "breadth": round(breadth_pct, 1),
-                "rankings": symbol_rankings[:10], # Save only the Top 10 for space
+                "setups": setup_count + breakout_count,
+                "extended": extended_count,
+                "rankings": symbol_rankings[:10],
                 "change": round(price_data[etf_ticker].pct_change().iloc[-1] * 100, 2)
             })
         except Exception as e:
