@@ -178,7 +178,15 @@ def get_rotation_data():
                 display_status = "Extended"
             else:
                 display_status = status # Fallback to your RRG status (Leading, etc.)
-
+            
+            # --- CALCULATE 5-DAY TRAIL ---
+            # We take the last 5 values from our series
+            trail_raw = []
+            for i in range(-5, 0):
+                trail_raw.append({
+                    "x": round(rs_ratio_series.iloc[i], 2),
+                    "y": round(rs_momentum_series.iloc[i], 2)
+                })
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
@@ -189,6 +197,7 @@ def get_rotation_data():
                 "setups": setup_count + breakout_count,
                 "extended": extended_count,
                 "rankings": symbol_rankings[:10],
+                "trail": trail_raw,
                 "change": round(price_data[etf_ticker].pct_change().iloc[-1] * 100, 2)
             })
         except Exception as e:
