@@ -104,13 +104,33 @@ def get_rotation_data():
             
             breadth_pct = (count_above / valid_symbols * 100) if valid_symbols > 0 else 0
 
+            # --- INDIVIDUAL SYMBOL RANKING ---
+            symbol_rankings = []
+            for sym in sector_symbols:
+                if sym in breadth_data.columns:
+                    series = breadth_data[sym].dropna()
+                    if len(series) > 50:
+                        # Calculate a simple RS score: Price / 50MA
+                        current_price = series.iloc[-1]
+                        ma50 = series.rolling(window=50).mean().iloc[-1]
+                        rs_score = round((current_price / ma50) * 100, 1)
+                        
+                        symbol_rankings.append({
+                            "symbol": sym,
+                            "rs_score": rs_score
+                        })
+            
+            # Sort symbols from High to Low RS
+            symbol_rankings.sort(key=lambda x: x['rs_score'], reverse=True)
+
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
-                "score": round(cur_ratio, 1), # This will now be near 100
-                "momentum": round(cur_mom, 1), # This will now be near 100
+                "score": round(cur_ratio, 1),
+                "momentum": round(cur_mom, 1),
                 "status": status,
                 "breadth": round(breadth_pct, 1),
+                "rankings": symbol_rankings[:10], # Save only the Top 10 for space
                 "change": round(price_data[etf_ticker].pct_change().iloc[-1] * 100, 2)
             })
         except Exception as e:
