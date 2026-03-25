@@ -28,8 +28,23 @@ SECTOR_ETF_MAP = {
 
 def get_sp500_structure():
     print("Scraping S&P 500 structure from Wikipedia...")
-    table = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
+    
+    url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+    
+    # Wikipedia REQUIRES a custom User-Agent. 
+    # You can put your own email or project name here too.
+    headers = {
+        'User-Agent': 'MarketRotationBot/1.0 (https://github.com/Copteez/stock-dashboard)'
+    }
+    
+    # 1. Manually get the page content
+    response = requests.get(url, headers=headers)
+    
+    # 2. Pass the HTML text to pandas
+    # We use [0] because it's the first table on the page
+    table = pd.read_html(response.text)
     df = table[0]
+    
     # Clean tickers for yfinance
     df['Symbol'] = df['Symbol'].str.replace('.', '-', regex=False)
     
