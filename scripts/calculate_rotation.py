@@ -2,6 +2,12 @@ import yfinance as yf
 import pandas as pd
 import json
 import os
+import requests
+
+session = requests.Session()
+session.headers.update({
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36'
+})
 
 BENCHMARK = "SPY"
 
@@ -39,12 +45,12 @@ def get_rotation_data():
     
     # 1. Download all Sector ETF data and SPY at once
     print("Downloading Sector ETF data...")
-    price_data = yf.download(all_sector_etfs + [BENCHMARK], period="7mo")['Close']
+    price_data = yf.download(all_sector_etfs + [BENCHMARK], period="7mo", interval="1d", session=session)['Close']
     
     # 2. Download all 500 individual stocks for Breadth (Last 60 days only)
     all_stocks = [t for sublist in sector_map.values() for t in sublist]
     print(f"Downloading data for {len(all_stocks)} stocks for Breadth calculation...")
-    breadth_data = yf.download(all_stocks, period="65d")['Close']
+    breadth_data = yf.download(all_stocks, period="65d", session=session)['Close']
 
     results = []
 
