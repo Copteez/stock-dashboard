@@ -52,11 +52,11 @@ def get_rotation_data():
     sector_map = get_sp500_structure()
     all_sector_etfs = list(SECTOR_ETF_MAP.values())
     
-    # 1. Download all Sector ETF data and SPY at once
+    # 1. Download data (7 months gives us enough buffer for a 100-day MA)
     print("Downloading Sector ETF data...")
     price_data = yf.download(all_sector_etfs + [BENCHMARK], period="7mo")['Close']
     
-    # 2. Download all 500 individual stocks for Breadth (Last 60 days only)
+    # 2. Download all 500 stocks for Breadth
     all_stocks = [t for sublist in sector_map.values() for t in sublist]
     print(f"Downloading data for {len(all_stocks)} stocks for Breadth calculation...")
     breadth_data = yf.download(all_stocks, period="65d")['Close']
@@ -67,23 +67,28 @@ def get_rotation_data():
         print(f"Analyzing {sector_name} ({etf_ticker})...")
         
         try:
-            # --- ROTATION MATH ---
-            # RS-Raw = (Sector / SPY) * 100
-            rs_raw = (price_data[etf_ticker] / price_data[BENCHMARK]) * 100
-            rs_ratio = rs_raw.ewm(span=10, adjust=False).mean()
-            rs_momentum = (rs_ratio.pct_change(periods=10) * 100) + 100
+            # --- IMPROVED RRG MATH SECTION ---
+            # 1. Base Relative Strength
+            rs_raw = (price_data[etf_ticker] / price_data[BENCHMARK])
+
+            # 2. RS-Ratio (X-Axis): Normalize so 100 is the benchmark trend
+            # We divide current RS by its 100-day moving average
+            rs_ratio_series = (rs_raw / rs_raw.rolling(window=100).mean()) * 100
             
-            cur_ratio = rs_ratio.iloc[-1]
-            cur_mom = rs_momentum.iloc[-1]
+            # 3. RS-Momentum (Y-Axis): Rate of change of the Ratio
+            # We compare the Ratio to its own 10-day average
+            rs_momentum_series = (rs_ratio_series / rs_ratio_series.rolling(window=10).mean()) * 100
             
-            # Quadrant Logic
+            cur_ratio = rs_ratio_series.iloc[-1]
+            cur_mom = rs_momentum_series.iloc[-1]
+            
+            # --- QUADRANT LOGIC (Stays the same, but now uses normalized 100) ---
             status = "Lagging"
             if cur_ratio > 100 and cur_mom > 100: status = "Leading"
             elif cur_ratio > 100 and cur_mom < 100: status = "Weakening"
             elif cur_ratio < 100 and cur_mom > 100: status = "Improving"
 
-            # --- BREADTH MATH ---
-            # % of stocks in this sector above their 50-day Moving Average
+            # --- BREADTH MATH (Keep your existing code below) ---
             sector_symbols = sector_map.get(sector_name, [])
             count_above = 0
             valid_symbols = 0
@@ -102,8 +107,8 @@ def get_rotation_data():
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
-                "score": round(cur_ratio, 1),
-                "momentum": round(cur_mom, 1),
+                "score": round(cur_ratio, 1), # This will now be near 100
+                "momentum": round(cur_mom, 1), # This will now be near 100
                 "status": status,
                 "breadth": round(breadth_pct, 1),
                 "change": round(price_data[etf_ticker].pct_change().iloc[-1] * 100, 2)
@@ -116,6 +121,7 @@ def get_rotation_data():
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
     print(f"Successfully updated data.json with {len(results)} sectors.")
+    
 
 if __name__ == "__main__":
     get_rotation_data()

@@ -19,26 +19,17 @@ export const metadata: Metadata = {
   description: "Daily Sector Rotation and Market Breadth Analysis",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}>
-      <body className="h-full flex bg-slate-950 text-slate-100 font-sans">
-        
-        {/* Fixed Sidebar: Stays on the left while you scroll the dashboard */}
+    <html lang="en" className="h-full">
+      {/* Changed bg-slate-950 to bg-slate-50 and text-slate-100 to text-slate-900 */}
+      <body className="h-full flex bg-white text-slate-900">
         <Sidebar />
-        
-        {/* Main Content: This area scrolls independently */}
-        <main className="flex-1 h-full overflow-y-auto custom-scrollbar">
-          {/* Max-width container keeps the dashboard from stretching too wide on big monitors */}
+        <main className="flex-1 overflow-y-auto -ml-px bg-slate-50">
           <div className="max-w-[1600px] mx-auto min-h-screen">
             {children}
           </div>
         </main>
-
       </body>
     </html>
   );
