@@ -452,8 +452,8 @@
     {
         "name": "Consumer Staples",
         "ticker": "XLP",
-        "score": 107.9,
-        "momentum": 102.5,
+        "score": NaN,
+        "momentum": NaN,
         "status": "Broken",
         "breadth": 20.0,
         "setups": 2,
@@ -502,27 +502,11 @@
         ],
         "trail": [
             {
-                "x": 104.09,
-                "y": 98.46
-            },
-            {
-                "x": 104.25,
-                "y": 98.85
-            },
-            {
-                "x": 104.07,
-                "y": 98.79
-            },
-            {
-                "x": 105.36,
-                "y": 100.12
-            },
-            {
-                "x": 107.87,
-                "y": 102.49
+                "x": NaN,
+                "y": NaN
             }
         ],
-        "change": 0.79
+        "change": NaN
     },
     {
         "name": "Energy",
@@ -602,8 +586,8 @@
     {
         "name": "Real Estate",
         "ticker": "XLRE",
-        "score": 104.1,
-        "momentum": 100.6,
+        "score": NaN,
+        "momentum": NaN,
         "status": "Broken",
         "breadth": 9.7,
         "setups": 2,
@@ -652,27 +636,11 @@
         ],
         "trail": [
             {
-                "x": 102.41,
-                "y": 98.39
-            },
-            {
-                "x": 101.89,
-                "y": 98.13
-            },
-            {
-                "x": 101.23,
-                "y": 97.69
-            },
-            {
-                "x": 103.07,
-                "y": 99.57
-            },
-            {
-                "x": 104.06,
-                "y": 100.63
+                "x": NaN,
+                "y": NaN
             }
         ],
-        "change": -0.69
+        "change": NaN
     },
     {
         "name": "Utilities",
