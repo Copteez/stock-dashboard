@@ -1,55 +1,70 @@
 "use client";
-import { LineChart, Line, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, ResponsiveContainer, YAxis } from 'recharts';
 
 export default function SectorDetails({ sector }: { sector: any }) {
   if (!sector || !sector.rankings) return null;
 
   return (
-    <div className="mt-2 overflow-x-auto bg-slate-900 rounded-b-lg border-t border-slate-800">
-      <table className="w-full text-left border-collapse">
+    <div className="overflow-x-auto bg-[#0f172a] rounded-b-lg border-t border-slate-800">
+      <table className="w-full text-left border-collapse min-w-[600px]">
         <thead>
-          <tr className="text-[10px] text-slate-500 uppercase tracking-wider border-b border-slate-800">
-            <th className="px-4 py-3 font-medium">Ticker</th>
-            <th className="px-4 py-3 font-medium text-right">Close</th>
-            <th className="px-4 py-3 font-medium text-center text-emerald-400">RS</th>
-            <th className="px-4 py-3 font-medium text-right">1D%</th>
-            <th className="px-4 py-3 font-medium text-right">Dist 52W</th>
-            <th className="px-4 py-3 font-medium text-center w-32">30D Trend</th>
+          <tr className="text-[10px] text-slate-500 uppercase tracking-widest border-b border-slate-800/50">
+            <th className="px-4 py-3 font-bold">Ticker</th>
+            <th className="px-4 py-3 font-bold text-right">Close</th>
+            <th className="px-4 py-3 font-bold text-center text-emerald-400">RS</th>
+            <th className="px-4 py-3 font-bold text-right">1D%</th>
+            <th className="px-4 py-3 font-bold text-right">Dist 52W</th>
+            <th className="px-4 py-3 font-bold text-center">30D Candle</th>
           </tr>
         </thead>
-        <tbody className="divide-y divide-slate-800/50">
-          {sector.rankings.map((stock: any) => (
-            <tr key={stock.symbol} className="hover:bg-slate-800/40 transition-colors">
-              <td className="px-4 py-3">
-                <span className="font-bold text-slate-200 text-sm">{stock.symbol}</span>
-              </td>
-              <td className="px-4 py-3 text-right font-mono text-slate-300 text-sm">
-                {stock.close.toFixed(2)}
-              </td>
-              <td className="px-4 py-3 text-center">
-                <span className="font-bold text-emerald-400">{Math.round(stock.rs_score)}</span>
-              </td>
-              <td className={`px-4 py-3 text-right font-mono text-sm ${stock.change_1d >= 0 ? 'text-green-500' : 'text-red-500'}`}>
-                {stock.change_1d >= 0 ? '+' : ''}{stock.change_1d}%
-              </td>
-              <td className="px-4 py-3 text-right font-mono text-sm text-orange-400">
-                {stock.dist_52w}%
-              </td>
-              <td className="px-4 py-3 h-10">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={stock.sparkline.map((val: number, i: number) => ({ val, i }))}>
-                    <Line 
-                      type="monotone" 
-                      dataKey="val" 
-                      stroke={stock.change_1d >= 0 ? "#10b981" : "#ef4444"} 
-                      strokeWidth={2} 
-                      dot={false} 
-                    />
-                  </LineChart>
-                </ResponsiveContainer>
-              </td>
-            </tr>
-          ))}
+        <tbody className="divide-y divide-slate-800/30">
+          {sector.rankings.map((stock: any) => {
+            const isPositive = stock.change_1d >= 0;
+            
+            return (
+              <tr key={stock.symbol} className="hover:bg-slate-800/40 transition-colors group">
+                <td className="px-4 py-3">
+                  <div className="flex flex-col">
+                    <span className="font-black text-slate-100 text-sm tracking-tight">{stock.symbol}</span>
+                    <span className="text-[9px] text-slate-500 uppercase font-mono">SET/NASDAQ</span>
+                  </div>
+                </td>
+                <td className="px-4 py-3 text-right font-mono text-slate-300 text-sm">
+                  {stock.close.toFixed(2)}
+                </td>
+                <td className="px-4 py-3 text-center">
+                  <span className="font-black text-emerald-400 text-sm">
+                    {Math.round(stock.rs_score)}
+                  </span>
+                </td>
+                <td className={`px-4 py-3 text-right font-mono text-sm font-bold ${isPositive ? 'text-green-500' : 'text-red-500'}`}>
+                  {isPositive ? '+' : ''}{stock.change_1d}%
+                </td>
+                <td className="px-4 py-3 text-right font-mono text-sm text-orange-400 font-medium">
+                  {stock.dist_52w}%
+                </td>
+                <td className="px-4 py-2">
+                  {/* FIX: Fixed dimensions for the sparkline container */}
+                  <div className="h-10 w-32 ml-auto mr-auto">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <LineChart data={stock.sparkline.map((val: number, i: number) => ({ val, i }))}>
+                        {/* Define a fixed Y domain to keep sparklines consistent */}
+                        <YAxis domain={[0, 1]} hide />
+                        <Line 
+                          type="monotone" 
+                          dataKey="val" 
+                          stroke={isPositive ? "#10b981" : "#ef4444"} 
+                          strokeWidth={2} 
+                          dot={false}
+                          isAnimationActive={false} // Faster rendering inside tables
+                        />
+                      </LineChart>
+                    </ResponsiveContainer>
+                  </div>
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>

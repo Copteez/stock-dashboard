@@ -7,7 +7,6 @@ from io import StringIO
 
 BENCHMARK = "SPY"
 
-# Mapping GICS Sectors to their tradable State Street ETFs (Standard Industry Benchmarks)
 SECTOR_ETF_MAP = {
     "Information Technology": "XLK",
     "Health Care": "XLV",
@@ -23,23 +22,12 @@ SECTOR_ETF_MAP = {
 }
 
 def get_sp500_structure():
-    print("Scraping S&P 500 structure from Wikipedia...")
-    
+    print("Scraping S&P 500 structure...")
     url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
-    headers = {
-        'User-Agent': 'MarketRotationBot/1.0 (Contact: your-email@example.com)'
-    }
-    
+    headers = {'User-Agent': 'MarketRotationBot/1.0'}
     response = requests.get(url, headers=headers)
-    
-    # CRITICAL FIX: Wrap response.text in StringIO()
-    # This forces pandas to read the string as a data stream
     html_data = StringIO(response.text)
-    
-    table = pd.read_html(html_data)
-    df = table[0]
-    
-    # Clean tickers for yfinance
+    df = pd.read_html(html_data)[0]
     df['Symbol'] = df['Symbol'].str.replace('.', '-', regex=False)
     
     sector_map = {}
@@ -52,83 +40,67 @@ def get_rotation_data():
     sector_map = get_sp500_structure()
     all_sector_etfs = list(SECTOR_ETF_MAP.values())
     
-    # 1. Download data (7 months gives us enough buffer for a 100-day MA)
+    # 1. Download ETF data
     print("Downloading Sector ETF data...")
-    price_data = yf.download(all_sector_etfs + [BENCHMARK], period="7mo")['Close']
+    price_data = yf.download(all_sector_etfs + [BENCHMARK], period="1y")['Close']
     
-    # 2. Download all 500 stocks for Breadth
+    # 2. Download Stock data (period="1y" is REQUIRED for 52W High calc)
     all_stocks = [t for sublist in sector_map.values() for t in sublist]
-    print(f"Downloading data for {len(all_stocks)} stocks for Breadth calculation...")
-    breadth_data = yf.download(all_stocks, period="65d")['Close']
+    print(f"Downloading {len(all_stocks)} stocks (1Y period)...")
+    breadth_data = yf.download(all_stocks, period="1y")['Close']
 
     results = []
 
     for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
-        print(f"Analyzing {sector_name} ({etf_ticker})...")
-        
+        print(f"Analyzing {sector_name}...")
         try:
-            # --- IMPROVED RRG MATH SECTION ---
-            # 1. Base Relative Strength
+            # --- RRG MATH ---
             rs_raw = (price_data[etf_ticker] / price_data[BENCHMARK])
-
-            # 2. RS-Ratio (X-Axis): Normalize so 100 is the benchmark trend
-            # We divide current RS by its 100-day moving average
             rs_ratio_series = (rs_raw / rs_raw.rolling(window=100).mean()) * 100
-            
-            # 3. RS-Momentum (Y-Axis): Rate of change of the Ratio
-            # We compare the Ratio to its own 10-day average
             rs_momentum_series = (rs_ratio_series / rs_ratio_series.rolling(window=10).mean()) * 100
             
-            cur_ratio = rs_ratio_series.iloc[-1]
-            cur_mom = rs_momentum_series.iloc[-1]
+            cur_ratio = float(rs_ratio_series.iloc[-1])
+            cur_mom = float(rs_momentum_series.iloc[-1])
             
-            # --- QUADRANT LOGIC (Stays the same, but now uses normalized 100) ---
+            # --- QUADRANT LOGIC ---
             status = "Lagging"
             if cur_ratio > 100 and cur_mom > 100: status = "Leading"
             elif cur_ratio > 100 and cur_mom < 100: status = "Weakening"
             elif cur_ratio < 100 and cur_mom > 100: status = "Improving"
 
-            # --- BREADTH MATH (Keep your existing code below) ---
-            sector_symbols = sector_map.get(sector_name, [])
-            count_above = 0
-            valid_symbols = 0
-            
-            for sym in sector_symbols:
-                if sym in breadth_data.columns:
-                    series = breadth_data[sym].dropna()
-                    if len(series) > 50:
-                        ma50 = series.rolling(window=50).mean().iloc[-1]
-                        if series.iloc[-1] > ma50:
-                            count_above += 1
-                        valid_symbols += 1
-            
-            breadth_pct = (count_above / valid_symbols * 100) if valid_symbols > 0 else 0
-
-            # --- INDIVIDUAL SYMBOL RANKING ---
+            # --- INDIVIDUAL SYMBOL RANKING (Stock Homework Style) ---
             symbol_rankings = []
+            sector_symbols = sector_map.get(sector_name, [])
+            
+            setup_count = 0
+            extended_count = 0
+            count_above_50ma = 0
+            valid_symbols = 0
+
             for sym in sector_symbols:
                 if sym in breadth_data.columns:
                     series = breadth_data[sym].dropna()
-                    if len(series) >= 252: # Need 1 year of data for 52W High
-                        curr = series.iloc[-1]
-                        prev = series.iloc[-2]
-                        
-                        # 1. RS Score (Price / 50MA)
-                        ma50 = series.rolling(window=50).mean().iloc[-1]
+                    if len(series) >= 252: # Full year of trading days
+                        valid_symbols += 1
+                        curr = float(series.iloc[-1])
+                        prev = float(series.iloc[-2])
+                        ma50 = float(series.rolling(window=50).mean().iloc[-1])
+                        high_52w = float(series.tail(252).max())
+
+                        # Metrics
                         rs_score = round((curr / ma50) * 100, 1)
-                        
-                        # 2. Daily Change (1D%)
                         change_1d = round(((curr - prev) / prev) * 100, 2)
-                        
-                        # 3. Distance from 52-Week High (DIST 52W)
-                        high_52w = series.tail(252).max()
                         dist_52w = round(((curr - high_52w) / high_52w) * 100, 1)
                         
-                        # 4. Sparkline Data (Last 30 days of prices)
-                        sparkline = series.tail(30).tolist()
-                        # Normalize sparkline to make it easier to draw (0 to 1 range)
-                        s_min, s_max = min(sparkline), max(sparkline)
-                        norm_sparkline = [round((x - s_min) / (s_max - s_min), 2) for x in sparkline]
+                        # Breadth & Setups
+                        if curr > ma50: count_above_50ma += 1
+                        if curr > ma50 and (curr / ma50 < 1.02): setup_count += 1
+                        if curr / ma50 > 1.15: extended_count += 1
+
+                        # Normalized Sparkline (0 to 1)
+                        spark_tail = series.tail(30).tolist()
+                        s_min, s_max = min(spark_tail), max(spark_tail)
+                        spark_norm = [round((x - s_min) / (s_max - s_min), 2) if s_max > s_min else 0.5 for x in spark_tail]
 
                         symbol_rankings.append({
                             "symbol": sym,
@@ -136,113 +108,43 @@ def get_rotation_data():
                             "rs_score": rs_score,
                             "change_1d": change_1d,
                             "dist_52w": dist_52w,
-                            "sparkline": norm_sparkline
+                            "sparkline": spark_norm
                         })
-            
-            # Sort symbols from High to Low RS
+
             symbol_rankings.sort(key=lambda x: x['rs_score'], reverse=True)
+            breadth_pct = round((count_above_50ma / valid_symbols * 100), 1) if valid_symbols > 0 else 0
 
-            # --- ADVANCED SIGNALS & SETUP DENSITY ---
-            sector_symbols = sector_map.get(sector_name, [])
-            setup_count = 0
-            extended_count = 0
-            breakout_count = 0
-            valid_symbols = 0
-            count_above_50ma = 0
-            
-            for sym in sector_symbols:
-                if sym in breadth_data.columns:
-                    # Drop NaNs immediately to avoid math errors
-                    series = breadth_data[sym].dropna()
-                    
-                    # Ensure we have at least 50 days of data for the MA
-                    if len(series) >= 50:
-                        try:
-                            valid_symbols += 1
-                            curr = series.iloc[-1]
-                            prev = series.iloc[-2]
-                            
-                            # Calculate MAs
-                            ma50_series = series.rolling(window=50).mean()
-                            ma50 = ma50_series.iloc[-1]
-                            
-                            # Final NaN check on the MA itself
-                            if pd.isna(ma50):
-                                valid_symbols -= 1
-                                continue
-
-                            # 1. Basic Breadth
-                            if curr > ma50: count_above_50ma += 1
-
-                            # 2. Setup: Pullback
-                            if curr > ma50 and (curr / ma50 < 1.02):
-                                setup_count += 1
-
-                            # 3. Setup: Breakout
-                            if prev < ma50 and curr > ma50:
-                                breakout_count += 1
-                            
-                            # 4. Risk Flag: Extended
-                            if curr / ma50 > 1.15:
-                                extended_count += 1
-                        except Exception:
-                            continue # Skip symbols that cause calculation errors
-            
-            breadth_pct = (count_above_50ma / valid_symbols * 100) if valid_symbols > 0 else 0
-
-            # Update the status logic to include "Extended" or "Broken"
-            if breadth_pct < 30:
-                display_status = "Broken"
-            elif extended_count > (valid_symbols * 0.4): # If 40% of stocks are vertical
-                display_status = "Extended"
-            else:
-                display_status = status # Fallback to your RRG status (Leading, etc.)
-            
-            # --- CALCULATE 5-DAY TRAIL (Hardened) ---
-            # Drop any NaN values from the series before grabbing the trail
+            # --- TRAIL CALCULATION ---
             clean_ratio = rs_ratio_series.dropna()
             clean_mom = rs_momentum_series.dropna()
-            
-            trail_raw = []
-            
-            # Check if we have at least 5 days of valid data after dropping NaNs
-            if len(clean_ratio) >= 5 and len(clean_mom) >= 5:
-                # Synchronize indices to ensure we use the same dates for X and Y
-                common_index = clean_ratio.index.intersection(clean_mom.index)
-                
-                # Take the last 5 valid trading days
+            trail = []
+            if len(clean_ratio) >= 5:
                 for i in range(-5, 0):
-                    idx = common_index[i]
-                    trail_raw.append({
-                        "x": round(float(clean_ratio.loc[idx]), 2),
-                        "y": round(float(clean_mom.loc[idx]), 2)
+                    trail.append({
+                        "x": round(float(clean_ratio.iloc[i]), 2),
+                        "y": round(float(clean_mom.iloc[i]), 2)
                     })
-            else:
-                # Fallback: Just use the current point as a single-point trail
-                trail_raw = [{"x": round(float(cur_ratio), 2), "y": round(float(cur_mom), 2)}]
-                
+
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
                 "score": round(cur_ratio, 1),
                 "momentum": round(cur_mom, 1),
-                "status": display_status,
-                "breadth": round(breadth_pct, 1),
-                "setups": setup_count + breakout_count,
+                "status": status,
+                "breadth": breadth_pct,
+                "setups": setup_count,
                 "extended": extended_count,
                 "rankings": symbol_rankings[:10],
-                "trail": trail_raw,
-                "change": round(price_data[etf_ticker].pct_change().iloc[-1] * 100, 2)
+                "trail": trail,
+                "change": round(float(price_data[etf_ticker].pct_change().iloc[-1] * 100), 2)
             })
         except Exception as e:
-            print(f"Error processing {sector_name}: {e}")
+            print(f"Error in {sector_name}: {e}")
 
-    # Save output
     output_path = os.path.join(os.path.dirname(__file__), '..', 'data.json')
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
-    print(f"Successfully updated data.json with {len(results)} sectors.")
-    
+    print("Successfully updated data.json")
 
 if __name__ == "__main__":
     get_rotation_data()
