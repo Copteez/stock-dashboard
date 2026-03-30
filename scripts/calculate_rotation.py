@@ -109,15 +109,34 @@ def get_rotation_data():
             for sym in sector_symbols:
                 if sym in breadth_data.columns:
                     series = breadth_data[sym].dropna()
-                    if len(series) > 50:
-                        # Calculate a simple RS score: Price / 50MA
-                        current_price = series.iloc[-1]
-                        ma50 = series.rolling(window=50).mean().iloc[-1]
-                        rs_score = round((current_price / ma50) * 100, 1)
+                    if len(series) >= 252: # Need 1 year of data for 52W High
+                        curr = series.iloc[-1]
+                        prev = series.iloc[-2]
                         
+                        # 1. RS Score (Price / 50MA)
+                        ma50 = series.rolling(window=50).mean().iloc[-1]
+                        rs_score = round((curr / ma50) * 100, 1)
+                        
+                        # 2. Daily Change (1D%)
+                        change_1d = round(((curr - prev) / prev) * 100, 2)
+                        
+                        # 3. Distance from 52-Week High (DIST 52W)
+                        high_52w = series.tail(252).max()
+                        dist_52w = round(((curr - high_52w) / high_52w) * 100, 1)
+                        
+                        # 4. Sparkline Data (Last 30 days of prices)
+                        sparkline = series.tail(30).tolist()
+                        # Normalize sparkline to make it easier to draw (0 to 1 range)
+                        s_min, s_max = min(sparkline), max(sparkline)
+                        norm_sparkline = [round((x - s_min) / (s_max - s_min), 2) for x in sparkline]
+
                         symbol_rankings.append({
                             "symbol": sym,
-                            "rs_score": rs_score
+                            "close": round(curr, 2),
+                            "rs_score": rs_score,
+                            "change_1d": change_1d,
+                            "dist_52w": dist_52w,
+                            "sparkline": norm_sparkline
                         })
             
             # Sort symbols from High to Low RS
