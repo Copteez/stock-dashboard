@@ -7,6 +7,7 @@ from io import StringIO
 
 BENCHMARK = "SPY"
 
+# These keys MUST match the Wikipedia "GICS Sector" names exactly
 SECTOR_ETF_MAP = {
     "Information Technology": "XLK",
     "Health Care": "XLV",
@@ -28,7 +29,10 @@ def get_sp500_structure():
     response = requests.get(url, headers=headers)
     html_data = StringIO(response.text)
     df = pd.read_html(html_data)[0]
+    
+    # Clean tickers and Sector names
     df['Symbol'] = df['Symbol'].str.replace('.', '-', regex=False)
+    df['GICS Sector'] = df['GICS Sector'].str.strip() # Remove invisible spaces
     
     sector_map = {}
     for sector in df['GICS Sector'].unique():
@@ -40,11 +44,9 @@ def get_rotation_data():
     sector_map = get_sp500_structure()
     all_sector_etfs = list(SECTOR_ETF_MAP.values())
     
-    # 1. Download ETF data
     print("Downloading Sector ETF data...")
     price_data = yf.download(all_sector_etfs + [BENCHMARK], period="1y")['Close']
     
-    # 2. Download Stock data
     all_stocks = [t for sublist in sector_map.values() for t in sublist]
     print(f"Downloading {len(all_stocks)} stocks (1Y period)...")
     breadth_data = yf.download(all_stocks, period="1y")['Close']
@@ -52,7 +54,10 @@ def get_rotation_data():
     results = []
 
     for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
-        print(f"Analyzing {sector_name} ({etf_ticker})...")
+        # DEBUG: Check if the key exists in Wikipedia data
+        sector_symbols = sector_map.get(sector_name, [])
+        print(f"Analyzing {sector_name}: Found {len(sector_symbols)} stocks.")
+
         try:
             # --- RRG MATH ---
             rs_raw = (price_data[etf_ticker] / price_data[BENCHMARK])
@@ -69,8 +74,6 @@ def get_rotation_data():
 
             # --- SYMBOL ANALYTICS ---
             symbol_rankings = []
-            sector_symbols = sector_map.get(sector_name, [])
-            
             setup_count = 0
             extended_count = 0
             count_above_50ma = 0
@@ -79,25 +82,21 @@ def get_rotation_data():
             for sym in sector_symbols:
                 if sym in breadth_data.columns:
                     series = breadth_data[sym].dropna()
-                    # Ensure enough data for 52W High (252 days) and MA50
-                    if len(series) >= 252:
+                    if len(series) >= 250: # Full year
                         valid_symbols += 1
                         curr = float(series.iloc[-1])
                         prev = float(series.iloc[-2])
                         ma50 = float(series.rolling(window=50).mean().iloc[-1])
                         high_52w = float(series.tail(252).max())
 
-                        # Score & Changes
                         rs_score = round((curr / ma50) * 100, 1)
                         change_1d = round(((curr - prev) / prev) * 100, 2)
                         dist_52w = round(((curr - high_52w) / high_52w) * 100, 1)
                         
-                        # Counters
                         if curr > ma50: count_above_50ma += 1
                         if curr > ma50 and (curr / ma50 < 1.02): setup_count += 1
                         if curr / ma50 > 1.15: extended_count += 1
 
-                        # Sparkline
                         spark_tail = series.tail(30).tolist()
                         s_min, s_max = min(spark_tail), max(spark_tail)
                         spark_norm = [round((x - s_min) / (s_max - s_min), 2) if s_max > s_min else 0.5 for x in spark_tail]
@@ -111,14 +110,13 @@ def get_rotation_data():
                             "sparkline": spark_norm
                         })
 
-            # Sort and finalize sector data
             symbol_rankings.sort(key=lambda x: x['rs_score'], reverse=True)
             breadth_pct = round((count_above_50ma / valid_symbols * 100), 1) if valid_symbols > 0 else 0
 
             # --- TRAIL ---
+            trail = []
             clean_ratio = rs_ratio_series.dropna()
             clean_mom = rs_momentum_series.dropna()
-            trail = []
             if len(clean_ratio) >= 5:
                 for i in range(-5, 0):
                     trail.append({
@@ -126,7 +124,9 @@ def get_rotation_data():
                         "y": round(float(clean_mom.iloc[i]), 2)
                     })
 
-            # --- ASSEMBLE FINAL OBJECT ---
+            # --- DAILY CHANGE FIX ---
+            daily_pct = round(float(((price_data[etf_ticker].iloc[-1] - price_data[etf_ticker].iloc[-2]) / price_data[etf_ticker].iloc[-2]) * 100), 2)
+
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
@@ -136,20 +136,19 @@ def get_rotation_data():
                 "breadth": breadth_pct,
                 "setups": setup_count,
                 "extended": extended_count,
-                "rankings": symbol_rankings[:10], # Top 10 strongest stocks in sector
+                "rankings": symbol_rankings[:10], 
                 "trail": trail,
-                "change": round(float(price_data[etf_ticker].pct_change().iloc[-1] * 100), 2)
+                "change": daily_pct
             })
             
         except Exception as e:
             print(f"Error in {sector_name}: {str(e)}")
 
-    # Save to data.json
     output_path = os.path.join(os.path.dirname(__file__), '..', 'data.json')
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
     
-    print(f"Update complete. Saved {len(results)} sectors to {output_path}")
+    print(f"Done. Saved to {output_path}")
 
 if __name__ == "__main__":
     get_rotation_data()
