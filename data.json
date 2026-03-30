@@ -2,63 +2,55 @@
     {
         "name": "Information Technology",
         "ticker": "XLK",
-        "score": 99.1,
-        "momentum": 100.2,
-        "status": "Improving",
-        "breadth": 41.1,
-        "setups": 12,
-        "extended": 8,
+        "score": 97.6,
+        "momentum": 98.8,
+        "status": "Broken",
+        "breadth": 24.7,
+        "setups": 4,
+        "extended": 3,
         "rankings": [
             {
+                "symbol": "DELL",
+                "rs_score": 128.1
+            },
+            {
                 "symbol": "CIEN",
-                "rs_score": 143.0
+                "rs_score": 127.6
             },
             {
                 "symbol": "LITE",
-                "rs_score": 139.1
-            },
-            {
-                "symbol": "DELL",
-                "rs_score": 138.8
-            },
-            {
-                "symbol": "HPE",
-                "rs_score": 120.5
-            },
-            {
-                "symbol": "GLW",
-                "rs_score": 118.8
+                "rs_score": 121.6
             },
             {
                 "symbol": "AKAM",
-                "rs_score": 117.6
+                "rs_score": 112.3
             },
             {
-                "symbol": "COHR",
-                "rs_score": 117.1
+                "symbol": "HPE",
+                "rs_score": 109.4
+            },
+            {
+                "symbol": "GLW",
+                "rs_score": 108.7
             },
             {
                 "symbol": "KEYS",
-                "rs_score": 117.0
+                "rs_score": 108.6
             },
             {
-                "symbol": "SNDK",
-                "rs_score": 114.5
+                "symbol": "VRSN",
+                "rs_score": 105.0
             },
             {
-                "symbol": "TER",
-                "rs_score": 113.3
+                "symbol": "HPQ",
+                "rs_score": 103.0
+            },
+            {
+                "symbol": "COHR",
+                "rs_score": 102.9
             }
         ],
         "trail": [
-            {
-                "x": 99.74,
-                "y": 101.42
-            },
-            {
-                "x": 98.94,
-                "y": 100.39
-            },
             {
                 "x": 99.28,
                 "y": 100.57
@@ -68,72 +60,72 @@
                 "y": 100.26
             },
             {
-                "x": 99.11,
-                "y": 100.22
+                "x": 99.05,
+                "y": 100.16
+            },
+            {
+                "x": 97.78,
+                "y": 98.92
+            },
+            {
+                "x": 97.62,
+                "y": 98.8
             }
         ],
-        "change": 0.57
+        "change": -1.95
     },
     {
         "name": "Health Care",
         "ticker": "XLV",
-        "score": 98.7,
-        "momentum": 99.6,
+        "score": 100.0,
+        "momentum": 101.0,
         "status": "Broken",
-        "breadth": 20.3,
-        "setups": 10,
+        "breadth": 10.2,
+        "setups": 4,
         "extended": 0,
         "rankings": [
             {
                 "symbol": "DVA",
-                "rs_score": 112.8
-            },
-            {
-                "symbol": "MRNA",
-                "rs_score": 110.0
+                "rs_score": 110.8
             },
             {
                 "symbol": "MRK",
                 "rs_score": 103.3
             },
             {
-                "symbol": "PFE",
-                "rs_score": 102.7
-            },
-            {
-                "symbol": "ALGN",
-                "rs_score": 102.6
-            },
-            {
-                "symbol": "BIIB",
-                "rs_score": 102.4
+                "symbol": "MRNA",
+                "rs_score": 102.0
             },
             {
                 "symbol": "JNJ",
-                "rs_score": 102.2
+                "rs_score": 101.8
             },
             {
-                "symbol": "WST",
-                "rs_score": 101.3
-            },
-            {
-                "symbol": "BMY",
-                "rs_score": 100.5
+                "symbol": "PFE",
+                "rs_score": 101.0
             },
             {
                 "symbol": "HOLX",
-                "rs_score": 100.5
+                "rs_score": 100.6
+            },
+            {
+                "symbol": "WST",
+                "rs_score": 99.8
+            },
+            {
+                "symbol": "BMY",
+                "rs_score": 99.6
+            },
+            {
+                "symbol": "BIIB",
+                "rs_score": 99.5
+            },
+            {
+                "symbol": "DGX",
+                "rs_score": 99.2
             }
         ],
         "trail": [
-            {
-                "x": 98.54,
-                "y": 98.52
-            },
-            {
-                "x": 99.07,
-                "y": 99.25
-            },
             {
                 "x": 98.03,
                 "y": 98.52
@@ -143,72 +135,72 @@
                 "y": 99.04
             },
             {
-                "x": 98.68,
-                "y": 99.57
+                "x": 98.7,
+                "y": 99.59
+            },
+            {
+                "x": 100.09,
+                "y": 101.0
+            },
+            {
+                "x": 100.03,
+                "y": 100.97
             }
         ],
-        "change": 1.03
+        "change": -1.7
     },
     {
         "name": "Financials",
         "ticker": "XLF",
-        "score": 97.2,
-        "momentum": 101.3,
+        "score": 97.5,
+        "momentum": 101.0,
         "status": "Broken",
-        "breadth": 5.3,
-        "setups": 4,
+        "breadth": 0.0,
+        "setups": 0,
         "extended": 0,
         "rankings": [
             {
-                "symbol": "C",
-                "rs_score": 101.5
-            },
-            {
-                "symbol": "CB",
-                "rs_score": 101.0
-            },
-            {
                 "symbol": "ALL",
-                "rs_score": 100.7
-            },
-            {
-                "symbol": "XYZ",
-                "rs_score": 100.7
-            },
-            {
-                "symbol": "STT",
-                "rs_score": 99.9
-            },
-            {
-                "symbol": "CBOE",
-                "rs_score": 99.6
-            },
-            {
-                "symbol": "CME",
-                "rs_score": 99.6
-            },
-            {
-                "symbol": "EG",
-                "rs_score": 99.4
-            },
-            {
-                "symbol": "L",
                 "rs_score": 99.3
             },
             {
+                "symbol": "CB",
+                "rs_score": 99.0
+            },
+            {
+                "symbol": "CME",
+                "rs_score": 98.9
+            },
+            {
+                "symbol": "ACGL",
+                "rs_score": 97.2
+            },
+            {
+                "symbol": "EG",
+                "rs_score": 97.2
+            },
+            {
+                "symbol": "CBOE",
+                "rs_score": 97.0
+            },
+            {
+                "symbol": "HIG",
+                "rs_score": 97.0
+            },
+            {
+                "symbol": "TRV",
+                "rs_score": 96.9
+            },
+            {
+                "symbol": "L",
+                "rs_score": 96.8
+            },
+            {
                 "symbol": "BK",
-                "rs_score": 99.2
+                "rs_score": 96.7
             }
         ],
         "trail": [
-            {
-                "x": 95.65,
-                "y": 100.65
-            },
-            {
-                "x": 97.26,
-                "y": 102.24
-            },
             {
                 "x": 97.15,
                 "y": 101.9
@@ -218,72 +210,72 @@
                 "y": 102.0
             },
             {
-                "x": 97.15,
-                "y": 101.31
+                "x": 97.09,
+                "y": 101.26
+            },
+            {
+                "x": 98.29,
+                "y": 102.06
+            },
+            {
+                "x": 97.48,
+                "y": 100.95
             }
         ],
-        "change": 0.23
+        "change": -2.53
     },
     {
         "name": "Consumer Discretionary",
         "ticker": "XLY",
-        "score": 97.2,
-        "momentum": 100.9,
+        "score": 96.2,
+        "momentum": 99.6,
         "status": "Broken",
-        "breadth": 16.7,
-        "setups": 3,
+        "breadth": 6.2,
+        "setups": 1,
         "extended": 0,
         "rankings": [
             {
-                "symbol": "GRMN",
-                "rs_score": 109.1
-            },
-            {
                 "symbol": "ROST",
-                "rs_score": 107.9
+                "rs_score": 105.8
             },
             {
-                "symbol": "MGM",
-                "rs_score": 104.5
-            },
-            {
-                "symbol": "TJX",
-                "rs_score": 102.6
-            },
-            {
-                "symbol": "TPR",
-                "rs_score": 102.3
-            },
-            {
-                "symbol": "ABNB",
+                "symbol": "GRMN",
                 "rs_score": 102.1
             },
             {
+                "symbol": "MGM",
+                "rs_score": 101.8
+            },
+            {
+                "symbol": "TJX",
+                "rs_score": 99.8
+            },
+            {
                 "symbol": "EBAY",
-                "rs_score": 100.5
+                "rs_score": 98.5
+            },
+            {
+                "symbol": "BBY",
+                "rs_score": 98.2
+            },
+            {
+                "symbol": "TPR",
+                "rs_score": 96.9
             },
             {
                 "symbol": "YUM",
-                "rs_score": 100.2
+                "rs_score": 96.8
             },
             {
                 "symbol": "HLT",
-                "rs_score": 99.7
+                "rs_score": 96.6
             },
             {
                 "symbol": "MAR",
-                "rs_score": 99.1
+                "rs_score": 96.1
             }
         ],
         "trail": [
-            {
-                "x": 95.74,
-                "y": 99.12
-            },
-            {
-                "x": 95.46,
-                "y": 99.04
-            },
             {
                 "x": 96.79,
                 "y": 100.43
@@ -293,72 +285,72 @@
                 "y": 100.43
             },
             {
-                "x": 97.25,
-                "y": 100.88
+                "x": 97.19,
+                "y": 100.83
+            },
+            {
+                "x": 97.28,
+                "y": 100.8
+            },
+            {
+                "x": 96.15,
+                "y": 99.64
             }
         ],
-        "change": 1.07
+        "change": -2.89
     },
     {
         "name": "Communication Services",
         "ticker": "XLC",
-        "score": 99.9,
-        "momentum": 98.7,
+        "score": 99.4,
+        "momentum": 98.8,
         "status": "Lagging",
-        "breadth": 30.4,
-        "setups": 3,
+        "breadth": 34.8,
+        "setups": 6,
         "extended": 0,
         "rankings": [
             {
-                "symbol": "VZ",
-                "rs_score": 107.8
-            },
-            {
                 "symbol": "T",
-                "rs_score": 107.5
+                "rs_score": 107.3
             },
             {
                 "symbol": "NFLX",
-                "rs_score": 105.9
+                "rs_score": 106.8
             },
             {
-                "symbol": "SATS",
-                "rs_score": 104.6
+                "symbol": "VZ",
+                "rs_score": 106.3
             },
             {
                 "symbol": "TMUS",
-                "rs_score": 102.9
+                "rs_score": 102.3
             },
             {
-                "symbol": "LYV",
-                "rs_score": 101.8
+                "symbol": "SATS",
+                "rs_score": 101.0
+            },
+            {
+                "symbol": "CHTR",
+                "rs_score": 100.4
             },
             {
                 "symbol": "EA",
                 "rs_score": 100.4
             },
             {
-                "symbol": "CHTR",
-                "rs_score": 100.0
+                "symbol": "NWS",
+                "rs_score": 100.1
             },
             {
                 "symbol": "NWSA",
-                "rs_score": 98.8
+                "rs_score": 99.3
             },
             {
-                "symbol": "NWS",
-                "rs_score": 98.8
+                "symbol": "WBD",
+                "rs_score": 97.0
             }
         ],
         "trail": [
-            {
-                "x": 100.99,
-                "y": 99.25
-            },
-            {
-                "x": 101.63,
-                "y": 100.0
-            },
             {
                 "x": 101.32,
                 "y": 99.77
@@ -368,72 +360,72 @@
                 "y": 98.87
             },
             {
-                "x": 99.9,
+                "x": 99.95,
+                "y": 98.78
+            },
+            {
+                "x": 99.36,
+                "y": 98.45
+            },
+            {
+                "x": 99.43,
                 "y": 98.75
             }
         ],
-        "change": 0.29
+        "change": -1.63
     },
     {
         "name": "Industrials",
         "ticker": "XLI",
-        "score": 105.7,
-        "momentum": 100.6,
+        "score": 105.2,
+        "momentum": 100.2,
         "status": "Broken",
-        "breadth": 24.1,
-        "setups": 13,
-        "extended": 2,
+        "breadth": 5.1,
+        "setups": 0,
+        "extended": 0,
         "rankings": [
             {
                 "symbol": "VRT",
-                "rs_score": 121.7
+                "rs_score": 109.0
             },
             {
                 "symbol": "GEV",
-                "rs_score": 117.6
+                "rs_score": 106.7
             },
             {
                 "symbol": "FIX",
-                "rs_score": 113.5
+                "rs_score": 104.3
             },
             {
                 "symbol": "PWR",
-                "rs_score": 110.0
+                "rs_score": 104.0
+            },
+            {
+                "symbol": "CSX",
+                "rs_score": 99.9
             },
             {
                 "symbol": "JCI",
-                "rs_score": 105.4
+                "rs_score": 99.8
+            },
+            {
+                "symbol": "ODFL",
+                "rs_score": 99.5
             },
             {
                 "symbol": "ETN",
-                "rs_score": 104.8
+                "rs_score": 99.1
+            },
+            {
+                "symbol": "FAST",
+                "rs_score": 99.0
             },
             {
                 "symbol": "EME",
-                "rs_score": 104.2
-            },
-            {
-                "symbol": "GNRC",
-                "rs_score": 103.3
-            },
-            {
-                "symbol": "CAT",
-                "rs_score": 102.6
-            },
-            {
-                "symbol": "HWM",
-                "rs_score": 102.6
+                "rs_score": 98.8
             }
         ],
         "trail": [
-            {
-                "x": 104.82,
-                "y": 99.17
-            },
-            {
-                "x": 104.71,
-                "y": 99.32
-            },
             {
                 "x": 104.7,
                 "y": 99.52
@@ -443,147 +435,131 @@
                 "y": 100.42
             },
             {
-                "x": 105.74,
-                "y": 100.63
+                "x": 105.56,
+                "y": 100.48
+            },
+            {
+                "x": 104.88,
+                "y": 99.85
+            },
+            {
+                "x": 105.23,
+                "y": 100.17
             }
         ],
-        "change": 0.9
+        "change": -1.28
     },
     {
         "name": "Consumer Staples",
         "ticker": "XLP",
-        "score": 104.0,
-        "momentum": 98.7,
+        "score": NaN,
+        "momentum": NaN,
         "status": "Broken",
-        "breadth": 14.3,
-        "setups": 1,
+        "breadth": 20.0,
+        "setups": 2,
         "extended": 0,
         "rankings": [
             {
                 "symbol": "BG",
-                "rs_score": 106.6
-            },
-            {
-                "symbol": "ADM",
-                "rs_score": 105.4
+                "rs_score": 108.5
             },
             {
                 "symbol": "KR",
-                "rs_score": 103.6
+                "rs_score": 106.9
+            },
+            {
+                "symbol": "ADM",
+                "rs_score": 105.8
             },
             {
                 "symbol": "TGT",
+                "rs_score": 105.7
+            },
+            {
+                "symbol": "MO",
                 "rs_score": 103.1
             },
             {
-                "symbol": "HSY",
-                "rs_score": 101.6
+                "symbol": "TSN",
+                "rs_score": 102.4
             },
             {
-                "symbol": "WMT",
-                "rs_score": 99.7
+                "symbol": "BF-B",
+                "rs_score": 101.4
             },
             {
                 "symbol": "COST",
-                "rs_score": 99.1
+                "rs_score": 99.9
             },
             {
-                "symbol": "KO",
-                "rs_score": 99.0
+                "symbol": "HSY",
+                "rs_score": 99.6
             },
             {
-                "symbol": "TSN",
-                "rs_score": 98.3
-            },
-            {
-                "symbol": "KVUE",
-                "rs_score": 98.2
+                "symbol": "MDLZ",
+                "rs_score": 99.5
             }
         ],
         "trail": [
             {
-                "x": 104.26,
-                "y": 98.09
-            },
-            {
-                "x": 104.82,
-                "y": 98.89
-            },
-            {
-                "x": 104.09,
-                "y": 98.46
-            },
-            {
-                "x": 104.25,
-                "y": 98.85
-            },
-            {
-                "x": 103.95,
-                "y": 98.69
+                "x": NaN,
+                "y": NaN
             }
         ],
-        "change": 0.43
+        "change": NaN
     },
     {
         "name": "Energy",
         "ticker": "XLE",
-        "score": 127.6,
-        "momentum": 102.0,
+        "score": 135.0,
+        "momentum": 106.2,
         "status": "Extended",
         "breadth": 100.0,
         "setups": 0,
-        "extended": 9,
+        "extended": 12,
         "rankings": [
             {
                 "symbol": "APA",
-                "rs_score": 138.7
+                "rs_score": 144.9
             },
             {
                 "symbol": "OXY",
-                "rs_score": 123.5
-            },
-            {
-                "symbol": "TPL",
-                "rs_score": 120.6
+                "rs_score": 128.3
             },
             {
                 "symbol": "MPC",
-                "rs_score": 119.8
+                "rs_score": 123.0
+            },
+            {
+                "symbol": "VLO",
+                "rs_score": 121.9
             },
             {
                 "symbol": "EOG",
-                "rs_score": 117.7
+                "rs_score": 121.6
             },
             {
                 "symbol": "COP",
-                "rs_score": 117.1
+                "rs_score": 119.5
             },
             {
                 "symbol": "DVN",
-                "rs_score": 117.1
+                "rs_score": 119.5
             },
             {
                 "symbol": "CTRA",
-                "rs_score": 116.8
+                "rs_score": 119.0
             },
             {
                 "symbol": "PSX",
-                "rs_score": 116.1
+                "rs_score": 119.0
             },
             {
                 "symbol": "FANG",
-                "rs_score": 115.0
+                "rs_score": 117.3
             }
         ],
         "trail": [
-            {
-                "x": 125.72,
-                "y": 103.26
-            },
-            {
-                "x": 126.97,
-                "y": 103.77
-            },
             {
                 "x": 126.67,
                 "y": 102.87
@@ -593,147 +569,131 @@
                 "y": 103.88
             },
             {
-                "x": 127.56,
-                "y": 101.99
+                "x": 127.34,
+                "y": 101.83
+            },
+            {
+                "x": 131.12,
+                "y": 104.15
+            },
+            {
+                "x": 135.0,
+                "y": 106.25
             }
         ],
-        "change": -0.22
+        "change": 1.69
     },
     {
         "name": "Real Estate",
         "ticker": "XLRE",
-        "score": 101.3,
-        "momentum": 97.7,
+        "score": NaN,
+        "momentum": NaN,
         "status": "Broken",
-        "breadth": 12.9,
-        "setups": 3,
+        "breadth": 9.7,
+        "setups": 2,
         "extended": 0,
         "rankings": [
             {
                 "symbol": "EQIX",
-                "rs_score": 108.2
+                "rs_score": 106.8
             },
             {
                 "symbol": "DLR",
-                "rs_score": 103.0
+                "rs_score": 101.8
             },
             {
                 "symbol": "KIM",
-                "rs_score": 101.9
-            },
-            {
-                "symbol": "HST",
-                "rs_score": 100.8
-            },
-            {
-                "symbol": "IRM",
-                "rs_score": 100.0
-            },
-            {
-                "symbol": "VTR",
-                "rs_score": 100.0
+                "rs_score": 100.3
             },
             {
                 "symbol": "REG",
-                "rs_score": 99.9
+                "rs_score": 99.3
+            },
+            {
+                "symbol": "VTR",
+                "rs_score": 98.8
             },
             {
                 "symbol": "WELL",
-                "rs_score": 98.9
-            },
-            {
-                "symbol": "FRT",
                 "rs_score": 98.2
             },
             {
-                "symbol": "PLD",
-                "rs_score": 98.0
+                "symbol": "FRT",
+                "rs_score": 97.9
+            },
+            {
+                "symbol": "HST",
+                "rs_score": 97.9
+            },
+            {
+                "symbol": "IRM",
+                "rs_score": 97.4
+            },
+            {
+                "symbol": "DOC",
+                "rs_score": 97.0
             }
         ],
         "trail": [
             {
-                "x": 104.56,
-                "y": 100.04
-            },
-            {
-                "x": 102.72,
-                "y": 98.51
-            },
-            {
-                "x": 102.41,
-                "y": 98.39
-            },
-            {
-                "x": 101.89,
-                "y": 98.13
-            },
-            {
-                "x": 101.29,
-                "y": 97.74
+                "x": NaN,
+                "y": NaN
             }
         ],
-        "change": 0.06
+        "change": NaN
     },
     {
         "name": "Utilities",
         "ticker": "XLU",
-        "score": 106.3,
-        "momentum": 98.9,
-        "status": "Weakening",
-        "breadth": 77.4,
-        "setups": 16,
+        "score": 110.7,
+        "momentum": 102.8,
+        "status": "Leading",
+        "breadth": 74.2,
+        "setups": 11,
         "extended": 0,
         "rankings": [
             {
+                "symbol": "ETR",
+                "rs_score": 108.5
+            },
+            {
                 "symbol": "SRE",
-                "rs_score": 104.8
+                "rs_score": 105.1
             },
             {
-                "symbol": "EIX",
-                "rs_score": 104.7
-            },
-            {
-                "symbol": "ATO",
-                "rs_score": 102.7
-            },
-            {
-                "symbol": "EXC",
-                "rs_score": 102.6
-            },
-            {
-                "symbol": "DTE",
-                "rs_score": 102.3
+                "symbol": "AWK",
+                "rs_score": 103.6
             },
             {
                 "symbol": "DUK",
-                "rs_score": 102.3
+                "rs_score": 103.4
             },
             {
-                "symbol": "ETR",
-                "rs_score": 102.2
+                "symbol": "EXC",
+                "rs_score": 103.4
             },
             {
-                "symbol": "NEE",
-                "rs_score": 102.2
-            },
-            {
-                "symbol": "FE",
-                "rs_score": 102.1
+                "symbol": "ATO",
+                "rs_score": 103.2
             },
             {
                 "symbol": "AEP",
-                "rs_score": 102.0
+                "rs_score": 103.1
+            },
+            {
+                "symbol": "SO",
+                "rs_score": 102.7
+            },
+            {
+                "symbol": "EIX",
+                "rs_score": 102.6
+            },
+            {
+                "symbol": "PNW",
+                "rs_score": 102.4
             }
         ],
         "trail": [
-            {
-                "x": 108.54,
-                "y": 100.83
-            },
-            {
-                "x": 105.63,
-                "y": 98.26
-            },
             {
                 "x": 105.53,
                 "y": 98.27
@@ -743,72 +703,72 @@
                 "y": 99.17
             },
             {
-                "x": 106.35,
-                "y": 98.88
+                "x": 106.28,
+                "y": 98.82
+            },
+            {
+                "x": 108.32,
+                "y": 100.66
+            },
+            {
+                "x": 110.71,
+                "y": 102.75
             }
         ],
-        "change": 0.48
+        "change": 0.57
     },
     {
         "name": "Materials",
         "ticker": "XLB",
-        "score": 107.8,
-        "momentum": 101.6,
-        "status": "Leading",
-        "breadth": 30.8,
-        "setups": 2,
+        "score": 110.2,
+        "momentum": 103.5,
+        "status": "Broken",
+        "breadth": 26.9,
+        "setups": 0,
         "extended": 3,
         "rankings": [
             {
                 "symbol": "LYB",
-                "rs_score": 130.6
+                "rs_score": 133.7
             },
             {
                 "symbol": "CF",
-                "rs_score": 125.4
+                "rs_score": 130.9
             },
             {
                 "symbol": "DOW",
-                "rs_score": 124.8
+                "rs_score": 127.0
             },
             {
                 "symbol": "CTVA",
-                "rs_score": 108.6
-            },
-            {
-                "symbol": "ALB",
-                "rs_score": 106.0
+                "rs_score": 107.8
             },
             {
                 "symbol": "APD",
-                "rs_score": 104.2
+                "rs_score": 105.2
+            },
+            {
+                "symbol": "ALB",
+                "rs_score": 104.5
             },
             {
                 "symbol": "LIN",
-                "rs_score": 103.6
+                "rs_score": 103.2
             },
             {
                 "symbol": "DD",
-                "rs_score": 100.0
+                "rs_score": 97.4
+            },
+            {
+                "symbol": "IFF",
+                "rs_score": 96.0
             },
             {
                 "symbol": "BALL",
-                "rs_score": 98.0
-            },
-            {
-                "symbol": "PKG",
-                "rs_score": 95.3
+                "rs_score": 95.8
             }
         ],
         "trail": [
-            {
-                "x": 104.15,
-                "y": 97.66
-            },
-            {
-                "x": 103.89,
-                "y": 97.76
-            },
             {
                 "x": 104.4,
                 "y": 98.49
@@ -818,10 +778,18 @@
                 "y": 100.57
             },
             {
-                "x": 107.76,
-                "y": 101.58
+                "x": 107.91,
+                "y": 101.71
+            },
+            {
+                "x": 108.96,
+                "y": 102.6
+            },
+            {
+                "x": 110.21,
+                "y": 103.51
             }
         ],
-        "change": 1.89
+        "change": -0.37
     }
 ]
