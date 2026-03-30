@@ -2,375 +2,375 @@
     {
         "name": "Information Technology",
         "ticker": "XLK",
-        "score": 97.5,
-        "momentum": 98.9,
-        "status": "Broken",
-        "breadth": 24.7,
-        "setups": 1,
-        "extended": 3,
+        "score": 97.1,
+        "momentum": 98.4,
+        "status": "Lagging",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
         "rankings": [],
         "trail": [
             {
-                "x": 98.97,
+                "x": 99.09,
+                "y": 100.26
+            },
+            {
+                "x": 99.05,
                 "y": 100.16
             },
             {
-                "x": 98.93,
-                "y": 100.07
+                "x": 97.78,
+                "y": 98.92
             },
             {
-                "x": 97.67,
-                "y": 98.85
+                "x": 97.62,
+                "y": 98.8
             },
             {
-                "x": 97.5,
+                "x": 97.11,
+                "y": 98.43
+            }
+        ],
+        "change": -0.11
+    },
+    {
+        "name": "Health Care",
+        "ticker": "XLV",
+        "score": 100.2,
+        "momentum": 101.2,
+        "status": "Leading",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 98.33,
+                "y": 99.04
+            },
+            {
+                "x": 98.7,
+                "y": 99.59
+            },
+            {
+                "x": 100.09,
+                "y": 101.0
+            },
+            {
+                "x": 100.03,
+                "y": 100.97
+            },
+            {
+                "x": 100.24,
+                "y": 101.18
+            }
+        ],
+        "change": 0.78
+    },
+    {
+        "name": "Financials",
+        "ticker": "XLF",
+        "score": 98.0,
+        "momentum": 101.2,
+        "status": "Improving",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 97.51,
+                "y": 102.0
+            },
+            {
+                "x": 97.09,
+                "y": 101.26
+            },
+            {
+                "x": 98.29,
+                "y": 102.06
+            },
+            {
+                "x": 97.48,
+                "y": 100.95
+            },
+            {
+                "x": 98.0,
+                "y": 101.16
+            }
+        ],
+        "change": 1.04
+    },
+    {
+        "name": "Consumer Discretionary",
+        "ticker": "XLY",
+        "score": 96.5,
+        "momentum": 100.0,
+        "status": "Improving",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 96.77,
+                "y": 100.43
+            },
+            {
+                "x": 97.19,
+                "y": 100.83
+            },
+            {
+                "x": 97.28,
+                "y": 100.8
+            },
+            {
+                "x": 96.15,
+                "y": 99.64
+            },
+            {
+                "x": 96.54,
+                "y": 100.03
+            }
+        ],
+        "change": 0.84
+    },
+    {
+        "name": "Communication Services",
+        "ticker": "XLC",
+        "score": 99.9,
+        "momentum": 99.4,
+        "status": "Lagging",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 100.23,
+                "y": 98.87
+            },
+            {
+                "x": 99.95,
+                "y": 98.78
+            },
+            {
+                "x": 99.36,
+                "y": 98.45
+            },
+            {
+                "x": 99.43,
                 "y": 98.75
             },
             {
-                "x": 97.54,
-                "y": 98.89
+                "x": 99.91,
+                "y": 99.38
+            }
+        ],
+        "change": 0.99
+    },
+    {
+        "name": "Industrials",
+        "ticker": "XLI",
+        "score": 104.4,
+        "momentum": 99.4,
+        "status": "Weakening",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 105.55,
+                "y": 100.42
+            },
+            {
+                "x": 105.56,
+                "y": 100.48
+            },
+            {
+                "x": 104.88,
+                "y": 99.85
+            },
+            {
+                "x": 105.23,
+                "y": 100.17
+            },
+            {
+                "x": 104.39,
+                "y": 99.42
+            }
+        ],
+        "change": -0.21
+    },
+    {
+        "name": "Consumer Staples",
+        "ticker": "XLP",
+        "score": 107.2,
+        "momentum": 101.8,
+        "status": "Leading",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 104.25,
+                "y": 98.85
+            },
+            {
+                "x": 104.07,
+                "y": 98.79
+            },
+            {
+                "x": 105.36,
+                "y": 100.12
+            },
+            {
+                "x": 107.87,
+                "y": 102.49
+            },
+            {
+                "x": 107.21,
+                "y": 101.82
+            }
+        ],
+        "change": 0.04
+    },
+    {
+        "name": "Energy",
+        "ticker": "XLE",
+        "score": 135.3,
+        "momentum": 105.4,
+        "status": "Leading",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 129.14,
+                "y": 103.88
+            },
+            {
+                "x": 127.34,
+                "y": 101.83
+            },
+            {
+                "x": 131.12,
+                "y": 104.15
+            },
+            {
+                "x": 135.0,
+                "y": 106.25
+            },
+            {
+                "x": 135.31,
+                "y": 105.4
+            }
+        ],
+        "change": 1.21
+    },
+    {
+        "name": "Real Estate",
+        "ticker": "XLRE",
+        "score": 104.5,
+        "momentum": 101.1,
+        "status": "Leading",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 101.89,
+                "y": 98.13
+            },
+            {
+                "x": 101.23,
+                "y": 97.69
+            },
+            {
+                "x": 103.07,
+                "y": 99.57
+            },
+            {
+                "x": 104.06,
+                "y": 100.63
+            },
+            {
+                "x": 104.53,
+                "y": 101.11
+            }
+        ],
+        "change": 1.02
+    },
+    {
+        "name": "Utilities",
+        "ticker": "XLU",
+        "score": 110.9,
+        "momentum": 102.7,
+        "status": "Leading",
+        "breadth": 0,
+        "setups": 0,
+        "extended": 0,
+        "rankings": [],
+        "trail": [
+            {
+                "x": 106.56,
+                "y": 99.17
+            },
+            {
+                "x": 106.28,
+                "y": 98.82
+            },
+            {
+                "x": 108.32,
+                "y": 100.66
+            },
+            {
+                "x": 110.71,
+                "y": 102.75
+            },
+            {
+                "x": 110.86,
+                "y": 102.7
             }
         ],
         "change": 0.75
     },
     {
-        "name": "Health Care",
-        "ticker": "XLV",
-        "score": 99.3,
-        "momentum": 100.6,
-        "status": "Broken",
-        "breadth": 15.3,
-        "setups": 8,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 97.93,
-                "y": 98.72
-            },
-            {
-                "x": 98.31,
-                "y": 99.31
-            },
-            {
-                "x": 99.7,
-                "y": 100.76
-            },
-            {
-                "x": 99.64,
-                "y": 100.78
-            },
-            {
-                "x": 99.34,
-                "y": 100.57
-            }
-        ],
-        "change": 0.54
-    },
-    {
-        "name": "Financials",
-        "ticker": "XLF",
-        "score": 97.5,
-        "momentum": 100.9,
-        "status": "Broken",
-        "breadth": 0.0,
-        "setups": 0,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 97.02,
-                "y": 101.59
-            },
-            {
-                "x": 96.61,
-                "y": 100.91
-            },
-            {
-                "x": 97.8,
-                "y": 101.77
-            },
-            {
-                "x": 97.0,
-                "y": 100.71
-            },
-            {
-                "x": 97.47,
-                "y": 100.91
-            }
-        ],
-        "change": 1.25
-    },
-    {
-        "name": "Consumer Discretionary",
-        "ticker": "XLY",
-        "score": 96.3,
-        "momentum": 99.9,
-        "status": "Broken",
-        "breadth": 10.4,
-        "setups": 4,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 96.58,
-                "y": 100.27
-            },
-            {
-                "x": 97.0,
-                "y": 100.69
-            },
-            {
-                "x": 97.09,
-                "y": 100.69
-            },
-            {
-                "x": 95.97,
-                "y": 99.55
-            },
-            {
-                "x": 96.31,
-                "y": 99.91
-            }
-        ],
-        "change": 1.08
-    },
-    {
-        "name": "Communication Services",
-        "ticker": "XLC",
-        "score": 99.1,
-        "momentum": 98.8,
-        "status": "Lagging",
-        "breadth": 39.1,
-        "setups": 5,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 99.92,
-                "y": 98.63
-            },
-            {
-                "x": 99.64,
-                "y": 98.57
-            },
-            {
-                "x": 99.06,
-                "y": 98.27
-            },
-            {
-                "x": 99.13,
-                "y": 98.61
-            },
-            {
-                "x": 99.12,
-                "y": 98.82
-            }
-        ],
-        "change": 0.78
-    },
-    {
-        "name": "Industrials",
-        "ticker": "XLI",
-        "score": 104.7,
-        "momentum": 99.8,
-        "status": "Broken",
-        "breadth": 6.3,
-        "setups": 2,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 105.26,
-                "y": 100.2
-            },
-            {
-                "x": 105.27,
-                "y": 100.29
-            },
-            {
-                "x": 104.6,
-                "y": 99.69
-            },
-            {
-                "x": 104.95,
-                "y": 100.04
-            },
-            {
-                "x": 104.69,
-                "y": 99.81
-            }
-        ],
-        "change": 0.64
-    },
-    {
-        "name": "Consumer Staples",
-        "ticker": "XLP",
-        "score": 106.3,
-        "momentum": 101.3,
-        "status": "Broken",
-        "breadth": 22.9,
-        "setups": 5,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 103.68,
-                "y": 98.41
-            },
-            {
-                "x": 103.51,
-                "y": 98.42
-            },
-            {
-                "x": 104.79,
-                "y": 99.8
-            },
-            {
-                "x": 107.29,
-                "y": 102.22
-            },
-            {
-                "x": 106.27,
-                "y": 101.3
-            }
-        ],
-        "change": -0.03
-    },
-    {
-        "name": "Energy",
-        "ticker": "XLE",
-        "score": 133.6,
-        "momentum": 104.5,
-        "status": "Extended",
-        "breadth": 100.0,
-        "setups": 0,
-        "extended": 12,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 128.32,
-                "y": 103.35
-            },
-            {
-                "x": 126.55,
-                "y": 101.39
-            },
-            {
-                "x": 130.31,
-                "y": 103.77
-            },
-            {
-                "x": 134.18,
-                "y": 105.94
-            },
-            {
-                "x": 133.56,
-                "y": 104.51
-            }
-        ],
-        "change": 0.78
-    },
-    {
-        "name": "Real Estate",
-        "ticker": "XLRE",
-        "score": 103.7,
-        "momentum": 100.7,
-        "status": "Broken",
-        "breadth": 12.9,
-        "setups": 3,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 101.22,
-                "y": 97.62
-            },
-            {
-                "x": 100.57,
-                "y": 97.24
-            },
-            {
-                "x": 102.41,
-                "y": 99.19
-            },
-            {
-                "x": 103.4,
-                "y": 100.31
-            },
-            {
-                "x": 103.69,
-                "y": 100.69
-            }
-        ],
-        "change": 1.12
-    },
-    {
-        "name": "Utilities",
-        "ticker": "XLU",
-        "score": 110.3,
-        "momentum": 102.5,
-        "status": "Leading",
-        "breadth": 80.6,
-        "setups": 6,
-        "extended": 0,
-        "rankings": [],
-        "trail": [
-            {
-                "x": 105.83,
-                "y": 98.63
-            },
-            {
-                "x": 105.56,
-                "y": 98.36
-            },
-            {
-                "x": 107.6,
-                "y": 100.26
-            },
-            {
-                "x": 109.98,
-                "y": 102.42
-            },
-            {
-                "x": 110.26,
-                "y": 102.55
-            }
-        ],
-        "change": 1.15
-    },
-    {
         "name": "Materials",
         "ticker": "XLB",
-        "score": 110.1,
-        "momentum": 103.2,
-        "status": "Broken",
-        "breadth": 26.9,
+        "score": 110.5,
+        "momentum": 103.4,
+        "status": "Leading",
+        "breadth": 0,
         "setups": 0,
-        "extended": 3,
+        "extended": 0,
         "rankings": [],
         "trail": [
             {
-                "x": 106.12,
-                "y": 100.22
+                "x": 106.59,
+                "y": 100.57
             },
             {
-                "x": 107.45,
-                "y": 101.41
+                "x": 107.91,
+                "y": 101.71
             },
             {
-                "x": 108.5,
-                "y": 102.35
+                "x": 108.96,
+                "y": 102.6
             },
             {
-                "x": 109.75,
-                "y": 103.3
+                "x": 110.21,
+                "y": 103.51
             },
             {
-                "x": 110.05,
-                "y": 103.24
+                "x": 110.48,
+                "y": 103.38
             }
         ],
-        "change": 1.28
+        "change": 0.96
     }
 ]
