@@ -44,7 +44,7 @@ def get_rotation_data():
     print("Downloading Sector ETF data...")
     price_data = yf.download(all_sector_etfs + [BENCHMARK], period="1y")['Close']
     
-    # 2. Download Stock data (period="1y" is REQUIRED for 52W High calc)
+    # 2. Download Stock data
     all_stocks = [t for sublist in sector_map.values() for t in sublist]
     print(f"Downloading {len(all_stocks)} stocks (1Y period)...")
     breadth_data = yf.download(all_stocks, period="1y")['Close']
@@ -52,7 +52,7 @@ def get_rotation_data():
     results = []
 
     for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
-        print(f"Analyzing {sector_name}...")
+        print(f"Analyzing {sector_name} ({etf_ticker})...")
         try:
             # --- RRG MATH ---
             rs_raw = (price_data[etf_ticker] / price_data[BENCHMARK])
@@ -62,13 +62,12 @@ def get_rotation_data():
             cur_ratio = float(rs_ratio_series.iloc[-1])
             cur_mom = float(rs_momentum_series.iloc[-1])
             
-            # --- QUADRANT LOGIC ---
             status = "Lagging"
             if cur_ratio > 100 and cur_mom > 100: status = "Leading"
             elif cur_ratio > 100 and cur_mom < 100: status = "Weakening"
             elif cur_ratio < 100 and cur_mom > 100: status = "Improving"
 
-            # --- INDIVIDUAL SYMBOL RANKING (Stock Homework Style) ---
+            # --- SYMBOL ANALYTICS ---
             symbol_rankings = []
             sector_symbols = sector_map.get(sector_name, [])
             
@@ -80,24 +79,25 @@ def get_rotation_data():
             for sym in sector_symbols:
                 if sym in breadth_data.columns:
                     series = breadth_data[sym].dropna()
-                    if len(series) >= 252: # Full year of trading days
+                    # Ensure enough data for 52W High (252 days) and MA50
+                    if len(series) >= 252:
                         valid_symbols += 1
                         curr = float(series.iloc[-1])
                         prev = float(series.iloc[-2])
                         ma50 = float(series.rolling(window=50).mean().iloc[-1])
                         high_52w = float(series.tail(252).max())
 
-                        # Metrics
+                        # Score & Changes
                         rs_score = round((curr / ma50) * 100, 1)
                         change_1d = round(((curr - prev) / prev) * 100, 2)
                         dist_52w = round(((curr - high_52w) / high_52w) * 100, 1)
                         
-                        # Breadth & Setups
+                        # Counters
                         if curr > ma50: count_above_50ma += 1
                         if curr > ma50 and (curr / ma50 < 1.02): setup_count += 1
                         if curr / ma50 > 1.15: extended_count += 1
 
-                        # Normalized Sparkline (0 to 1)
+                        # Sparkline
                         spark_tail = series.tail(30).tolist()
                         s_min, s_max = min(spark_tail), max(spark_tail)
                         spark_norm = [round((x - s_min) / (s_max - s_min), 2) if s_max > s_min else 0.5 for x in spark_tail]
@@ -111,10 +111,11 @@ def get_rotation_data():
                             "sparkline": spark_norm
                         })
 
+            # Sort and finalize sector data
             symbol_rankings.sort(key=lambda x: x['rs_score'], reverse=True)
             breadth_pct = round((count_above_50ma / valid_symbols * 100), 1) if valid_symbols > 0 else 0
 
-            # --- TRAIL CALCULATION ---
+            # --- TRAIL ---
             clean_ratio = rs_ratio_series.dropna()
             clean_mom = rs_momentum_series.dropna()
             trail = []
@@ -125,6 +126,7 @@ def get_rotation_data():
                         "y": round(float(clean_mom.iloc[i]), 2)
                     })
 
+            # --- ASSEMBLE FINAL OBJECT ---
             results.append({
                 "name": sector_name,
                 "ticker": etf_ticker,
@@ -134,17 +136,20 @@ def get_rotation_data():
                 "breadth": breadth_pct,
                 "setups": setup_count,
                 "extended": extended_count,
-                "rankings": symbol_rankings[:10],
+                "rankings": symbol_rankings[:10], # Top 10 strongest stocks in sector
                 "trail": trail,
                 "change": round(float(price_data[etf_ticker].pct_change().iloc[-1] * 100), 2)
             })
+            
         except Exception as e:
-            print(f"Error in {sector_name}: {e}")
+            print(f"Error in {sector_name}: {str(e)}")
 
+    # Save to data.json
     output_path = os.path.join(os.path.dirname(__file__), '..', 'data.json')
     with open(output_path, 'w') as f:
         json.dump(results, f, indent=4)
-    print("Successfully updated data.json")
+    
+    print(f"Update complete. Saved {len(results)} sectors to {output_path}")
 
 if __name__ == "__main__":
     get_rotation_data()
