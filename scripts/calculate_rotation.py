@@ -7,7 +7,6 @@ from io import StringIO
 
 BENCHMARK = "SPY"
 
-# These keys MUST match the Wikipedia "GICS Sector" names exactly
 SECTOR_ETF_MAP = {
     "Information Technology": "XLK",
     "Health Care": "XLV",
@@ -29,10 +28,8 @@ def get_sp500_structure():
     response = requests.get(url, headers=headers)
     html_data = StringIO(response.text)
     df = pd.read_html(html_data)[0]
-    
-    # Clean tickers and Sector names
     df['Symbol'] = df['Symbol'].str.replace('.', '-', regex=False)
-    df['GICS Sector'] = df['GICS Sector'].str.strip() # Remove invisible spaces
+    df['GICS Sector'] = df['GICS Sector'].str.strip()
     
     sector_map = {}
     for sector in df['GICS Sector'].unique():
@@ -48,13 +45,14 @@ def get_rotation_data():
     price_data = yf.download(all_sector_etfs + [BENCHMARK], period="1y")['Close']
     
     all_stocks = [t for sublist in sector_map.values() for t in sublist]
-    print(f"Downloading {len(all_stocks)} stocks (1Y period)...")
-    breadth_data = yf.download(all_stocks, period="1y")['Close']
+    print(f"Downloading {len(all_stocks)} stocks with OHLC (1Y period)...")
+    
+    # CRITICAL CHANGE: Download full OHLC data, not just ['Close']
+    raw_data = yf.download(all_stocks, period="1y")
 
     results = []
 
     for sector_name, etf_ticker in SECTOR_ETF_MAP.items():
-        # DEBUG: Check if the key exists in Wikipedia data
         sector_symbols = sector_map.get(sector_name, [])
         print(f"Analyzing {sector_name}: Found {len(sector_symbols)} stocks.")
 
@@ -72,7 +70,6 @@ def get_rotation_data():
             elif cur_ratio > 100 and cur_mom < 100: status = "Weakening"
             elif cur_ratio < 100 and cur_mom > 100: status = "Improving"
 
-            # --- SYMBOL ANALYTICS ---
             symbol_rankings = []
             setup_count = 0
             extended_count = 0
@@ -80,14 +77,20 @@ def get_rotation_data():
             valid_symbols = 0
 
             for sym in sector_symbols:
-                if sym in breadth_data.columns:
-                    series = breadth_data[sym].dropna()
-                    if len(series) >= 250: # Full year
+                # Check if symbol exists in the MultiIndex columns
+                if sym in raw_data['Close'].columns:
+                    # Get the specific data for this symbol
+                    s_close = raw_data['Close'][sym].dropna()
+                    s_open = raw_data['Open'][sym].dropna()
+                    s_high = raw_data['High'][sym].dropna()
+                    s_low = raw_data['Low'][sym].dropna()
+
+                    if len(s_close) >= 250:
                         valid_symbols += 1
-                        curr = float(series.iloc[-1])
-                        prev = float(series.iloc[-2])
-                        ma50 = float(series.rolling(window=50).mean().iloc[-1])
-                        high_52w = float(series.tail(252).max())
+                        curr = float(s_close.iloc[-1])
+                        prev = float(s_close.iloc[-2])
+                        ma50 = float(s_close.rolling(window=50).mean().iloc[-1])
+                        high_52w = float(s_close.tail(252).max())
 
                         rs_score = round((curr / ma50) * 100, 1)
                         change_1d = round(((curr - prev) / prev) * 100, 2)
@@ -97,17 +100,27 @@ def get_rotation_data():
                         if curr > ma50 and (curr / ma50 < 1.02): setup_count += 1
                         if curr / ma50 > 1.15: extended_count += 1
 
-                        spark_tail = series.tail(30).tolist()
-                        s_min, s_max = min(spark_tail), max(spark_tail)
-                        spark_norm = [round((x - s_min) / (s_max - s_min), 2) if s_max > s_min else 0.5 for x in spark_tail]
+                        # --- REAL OHLC FOR CANDLESTICKS ---
+                        # Get last 30 days
+                        ohlc_tail = []
+                        last_30_indices = s_close.tail(30).index
+                        
+                        for date in last_30_indices:
+                            ohlc_tail.append({
+                                "time": date.strftime('%Y-%m-%d'),
+                                "o": round(float(s_open.loc[date]), 2),
+                                "h": round(float(s_high.loc[date]), 2),
+                                "l": round(float(s_low.loc[date]), 2),
+                                "c": round(float(s_close.loc[date]), 2)
+                            })
 
                         symbol_rankings.append({
                             "symbol": sym,
+                            "ohlc": ohlc_tail,
                             "close": round(curr, 2),
                             "rs_score": rs_score,
                             "change_1d": change_1d,
-                            "dist_52w": dist_52w,
-                            "sparkline": spark_norm
+                            "dist_52w": dist_52w
                         })
 
             symbol_rankings.sort(key=lambda x: x['rs_score'], reverse=True)
@@ -124,7 +137,6 @@ def get_rotation_data():
                         "y": round(float(clean_mom.iloc[i]), 2)
                     })
 
-            # --- DAILY CHANGE FIX ---
             daily_pct = round(float(((price_data[etf_ticker].iloc[-1] - price_data[etf_ticker].iloc[-2]) / price_data[etf_ticker].iloc[-2]) * 100), 2)
 
             results.append({

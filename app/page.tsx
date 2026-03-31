@@ -81,7 +81,7 @@ export default function DashboardPage() {
       </div>
 
       {/* The Dashboard Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start">
+      <div className="grid grid-cols-1 gap-6 items-start">
         {themeData.map((theme) => {
           const isSelected = selectedTicker === theme.ticker;
 
