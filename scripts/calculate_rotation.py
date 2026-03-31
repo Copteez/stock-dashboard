@@ -101,11 +101,11 @@ def get_rotation_data():
                         if curr / ma50 > 1.15: extended_count += 1
 
                         # --- REAL OHLC FOR CANDLESTICKS ---
-                        # Get last 30 days
+                        # Get last 52 days
                         ohlc_tail = []
-                        last_30_indices = s_close.tail(30).index
-                        
-                        for date in last_30_indices:
+                        last_52_indices = s_close.tail(52).index # 52
+
+                        for date in last_52_indices:
                             ohlc_tail.append({
                                 "time": date.strftime('%Y-%m-%d'),
                                 "o": round(float(s_open.loc[date]), 2),
