@@ -2,8 +2,8 @@
     {
         "name": "Information Technology",
         "ticker": "XLK",
-        "score": 97.5,
-        "momentum": 95.0,
+        "score": NaN,
+        "momentum": NaN,
         "status": "Lagging",
         "breadth": 36.5,
         "setups": 9,
@@ -3762,14 +3762,14 @@
                 "y": 95.02
             }
         ],
-        "change": -3.02
+        "change": NaN
     },
     {
         "name": "Health Care",
         "ticker": "XLV",
-        "score": 107.3,
-        "momentum": 104.2,
-        "status": "Leading",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 73.3,
         "setups": 8,
         "extended": 2,
@@ -7527,15 +7527,15 @@
                 "y": 104.17
             }
         ],
-        "change": -0.27
+        "change": NaN
     },
     {
         "name": "Financials",
         "ticker": "XLF",
-        "score": 99.4,
-        "momentum": 103.1,
-        "status": "Improving",
-        "breadth": 39.5,
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
+        "breadth": 40.0,
         "setups": 8,
         "extended": 0,
         "rankings": [
@@ -11292,14 +11292,14 @@
                 "y": 103.1
             }
         ],
-        "change": 0.45
+        "change": NaN
     },
     {
         "name": "Consumer Discretionary",
         "ticker": "XLY",
-        "score": 97.0,
-        "momentum": 102.3,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 40.4,
         "setups": 6,
         "extended": 0,
@@ -14659,7 +14659,7 @@
                 "close": 3120.59,
                 "rs_score": 106.1,
                 "change_1d": 1.99,
-                "dist_52w": -22.6
+                "dist_52w": -22.1
             },
             {
                 "symbol": "BBY",
@@ -15057,14 +15057,14 @@
                 "y": 102.28
             }
         ],
-        "change": -0.84
+        "change": NaN
     },
     {
         "name": "Communication Services",
         "ticker": "XLC",
-        "score": 98.5,
-        "momentum": 100.8,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 22.7,
         "setups": 3,
         "extended": 0,
@@ -18822,14 +18822,14 @@
                 "y": 100.82
             }
         ],
-        "change": -1.89
+        "change": NaN
     },
     {
         "name": "Industrials",
         "ticker": "XLI",
-        "score": 94.2,
-        "momentum": 101.1,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 29.6,
         "setups": 11,
         "extended": 0,
@@ -22587,14 +22587,14 @@
                 "y": 101.11
             }
         ],
-        "change": -0.08
+        "change": NaN
     },
     {
         "name": "Consumer Staples",
         "ticker": "XLP",
-        "score": 103.7,
-        "momentum": 105.9,
-        "status": "Leading",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 69.7,
         "setups": 3,
         "extended": 0,
@@ -26352,14 +26352,14 @@
                 "y": 105.89
             }
         ],
-        "change": 1.08
+        "change": NaN
     },
     {
         "name": "Energy",
         "ticker": "XLE",
-        "score": 113.2,
-        "momentum": 105.0,
-        "status": "Leading",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 76.2,
         "setups": 2,
         "extended": 2,
@@ -30117,14 +30117,14 @@
                 "y": 105.03
             }
         ],
-        "change": 2.52
+        "change": NaN
     },
     {
         "name": "Real Estate",
         "ticker": "XLRE",
-        "score": 95.8,
-        "momentum": 103.7,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 23.3,
         "setups": 2,
         "extended": 0,
@@ -33882,14 +33882,14 @@
                 "y": 103.66
             }
         ],
-        "change": 0.4
+        "change": NaN
     },
     {
         "name": "Utilities",
         "ticker": "XLU",
-        "score": 96.8,
-        "momentum": 103.9,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 71.0,
         "setups": 8,
         "extended": 0,
@@ -37647,14 +37647,14 @@
                 "y": 103.95
             }
         ],
-        "change": 1.34
+        "change": NaN
     },
     {
         "name": "Materials",
         "ticker": "XLB",
-        "score": 98.9,
-        "momentum": 104.1,
-        "status": "Improving",
+        "score": NaN,
+        "momentum": NaN,
+        "status": "Lagging",
         "breadth": 45.8,
         "setups": 5,
         "extended": 0,
@@ -41412,6 +41412,6 @@
                 "y": 104.09
             }
         ],
-        "change": 0.71
+        "change": NaN
     }
 ]
